@@ -1,0 +1,35 @@
+<tr>
+  <td>###num###</td>
+  <td>###descripcion###</td>
+  <td>###ubicacion###</td>
+  <td>
+      <button class="btn btn-sm btn-danger" id='elimina-sububicacion-###id###'>
+          <i class="far fa-trash-alt"></i>
+      </button>
+      <button class="btn btn-sm btn-secondary" id='edita-sububicacion-###id###'>
+          <i class="fas fa-edit"></i>
+      </button>
+  </td>
+</tr>
+
+<script>
+ $('#elimina-sububicacion-###id###').on('click', ()=>{
+
+   let id_sububicacion = "###id###";
+
+   if( confirm( 'Está Seguro ???' )  )
+   {
+     let data = {'id' : 'eliminaSubUbicacion' , 'id_sububicacion':id_sububicacion};
+     ajxNoImg( '#multiverso' , data );
+   }
+ });
+
+ $('#edita-sububicacion-###id###').on('click', ()=>{
+
+   let id_sububicacion = "###id###";
+   let data = {'id' : 'editaSubUbicacion' , 'id_sububicacion':id_sububicacion};
+
+   ajxNoImg( '#multiverso' , data );
+
+ } );
+</script>

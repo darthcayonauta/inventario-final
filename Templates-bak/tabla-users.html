@@ -1,0 +1,113 @@
+<style>
+    #limit{
+        height: 3px;
+        background: #757575;
+    }
+
+    .espacio-tabla{
+
+        text-align: left;
+    }
+</style>
+
+<div class="espacio-tabla">
+<div class="row">
+    <div class="col-sm-12">
+        <p class="h4">
+            <i class="fas fa-arrow-circle-right"></i> <strong>  Lista de Usuarios </strong>
+
+        </p>
+    </div>
+</div>
+<div id="limit"></div>
+<br>
+###menu_admin###
+<br>
+<div id="form-buscar">
+    <br>
+        <div class="row">
+            <div class="col-sm-8">
+                ###buscar###
+            </div>
+        </div>
+    </div>
+
+<br>
+<div id="mi-tabla">
+<div class="row">
+    <div class="col-md-12">
+          <div class="alert alert-warning">
+                Hay un total de <a href="#" class="alert-link">###total-recs###</a> registros ( s ) ingresado( s )
+          </div>
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+        <table class="table table-hover ">
+                <thead class="thead-light">
+                <tr>
+                   <th>#</th>
+                   <th>Usuario</th>
+                   <th>email</th>
+                   <th>Estado</th>
+                   <th></th>
+                   <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    ###tr###
+                </tbody>
+            </table>
+        <div id="limit"></div>
+        <br>
+        <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @@@NAV-LINKS
+                </ul>
+            </nav>
+    </div>
+</div>
+</div>
+</div>
+
+<script>
+
+$('#buscar-btn').on('click', () =>{
+
+    let apaterno  = $('#apaterno').val();
+
+    if( apaterno == '' )
+    { alert( 'debe ingresar un valor' ); return false;  }
+    else{
+
+        let data = { 'id':'buscarUser','apaterno':apaterno };
+        ajx( '#multiverso' , data );
+    }
+});
+
+
+$('#show-buscar').on( 'click' , ()=>{
+    $('#form-buscar').toggle( 400 );
+});
+
+$('#form-buscar').hide();
+
+
+$('.pagination').click( function(event ){
+
+event.preventDefault();
+
+    var valores = $(this).attr('data');
+    var page     = valores.split("=");
+
+    var data = {
+        'accion':'send',
+        'id':'listar-usuarios',
+        'page':page[1] };
+
+    ajx('#multiverso',data);
+
+});
+
+</script>

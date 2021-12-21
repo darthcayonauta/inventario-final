@@ -1,0 +1,209 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-10">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Clientes ( Personas )
+        </strong>
+          ( ###title### ) <a href="content-page.php?id=dmVyLXN1YmNsaWVudGVz" class="btn btn-sm btn-secondary">
+                [ Ir a Listado ]
+          </a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  ###menu_aux###
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Nombre de Clientes</label>
+    </div>
+    <div class="col-sm-10 col-1 col-1">
+      <input type ="text"
+             name ="nombre_cliente"
+             id   ="nombre_cliente"
+             value="###nombre_cliente###"
+             placeholder="Ingrese Nombre"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Apellido Paterno</label>
+    </div>
+    <div class="col-sm-4">
+      <input type ="text"
+             name ="apaterno"
+             id   ="apaterno"
+             value="###apaterno###"
+             placeholder="Ingrese Apellido Paterno"
+             class = "form-control">
+    </div>
+    <div class="col-sm-2">
+      <label>Apellido Materno</label>
+    </div>
+    <div class="col-sm-4">
+      <input type ="text"
+             name ="amaterno"
+             id   ="amaterno"
+             value="###amaterno###"
+             placeholder="Ingrese Apellido Materno"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <label>RUT</label>
+    </div>
+    <div class="col-sm-6 col-1 col-1">
+      <input type ="text"
+             name ="rut"
+             id   ="rut"
+             value="###rut###"
+             placeholder="Ingrese RUT Ejemplo: 1111111-1 , Sin Puntos"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Email</label>
+    </div>
+    <div class="col-sm-4">
+      <input type ="email"
+             name ="email"
+             id   ="email"
+             value="###email###"
+             placeholder="Ingrese Email"
+             class = "form-control">
+    </div>
+    <div class="col-sm-2">
+      <label>Fono</label>
+    </div>
+    <div class="col-sm-4">
+      <input type ="text"
+             name ="fono"
+             id   ="fono"
+             value="###fono###"
+             placeholder="Ingrese Fono"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Empresa</label>
+    </div>
+    <div class="col-sm-6 col-1 col-1">
+        ###select###
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      ###hidden###
+      <button  class="btn btn-info btn-block" id="###id_button###" type="button">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+      </button>
+      <br>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-10">
+        <div id="notificacion"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $( "#send" ).on('click',(e)=>{
+
+   let  nombre_cliente  = $('#nombre_cliente').val();
+   let  apaterno        = $('#apaterno').val();
+   let  amaterno        = $('#amaterno').val();
+   let  rut             = $('#rut').val();
+   let  email           = $('#email').val();
+   let  fono            = $('#fono').val();
+   let  id_cliente      = $('#id_cliente').val();
+
+  if( nombre_cliente=='' || apaterno=='' || rut=='' || email=='' || fono== '' || id_cliente=='')
+  {
+    alert('Hay campos que son obligatorios');
+    return false;
+  }else{
+    if( !validaRut( rut )  )
+    { alert("Ingrese Rut Válido"); return false; }
+    else{
+      if( !validaEmail( email ) )
+      {
+        alert( 'Ingrese un email válido' ); return false;
+      }else{
+
+        let data = {  'nombre_cliente'  : nombre_cliente,
+                      'apaterno'        : apaterno,
+                      'amaterno'        : amaterno,
+                      'rut'             : rut,
+                      'email'           : email,
+                      'fono'            : fono,
+                      'id_cliente'      : id_cliente,
+                      'id'              : 'ingresaSubCliente' };
+
+        ajx('#multiverso', data);
+      }
+    }
+  }
+  });
+
+  $( "#update" ).on('click',(e)=>{
+
+   let  nombre_cliente  = $('#nombre_cliente').val();
+   let  apaterno        = $('#apaterno').val();
+   let  amaterno        = $('#amaterno').val();
+   let  rut             = $('#rut').val();
+   let  email           = $('#email').val();
+   let  fono            = $('#fono').val();
+   let  id_cliente      = $('#id_cliente').val();
+   let  id_subcliente   = $('#id_subcliente').val();
+
+  if( nombre_cliente=='' || apaterno=='' || rut=='' || email=='' || fono== '' || id_cliente=='')
+  {
+    alert('Hay campos que son obligatorios');
+    return false;
+  }else{
+    if( !validaRut( rut )  )
+    { alert("Ingrese Rut Válido"); return false; }
+    else{
+      if( !validaEmail( email ) )
+      {
+        alert( 'Ingrese un email válido' ); return false;
+      }else{
+
+        let data = {  'nombre_cliente'  : nombre_cliente,
+                      'apaterno'        : apaterno,
+                      'amaterno'        : amaterno,
+                      'rut'             : rut,
+                      'email'           : email,
+                      'fono'            : fono,
+                      'id_cliente'      : id_cliente,
+                      'id_subcliente'   : id_subcliente,
+                      'id'              : 'actualizaSubCliente' };
+
+        ajx('#notificacion', data);
+      }
+    }
+  }
+  });
+
+
+</script>

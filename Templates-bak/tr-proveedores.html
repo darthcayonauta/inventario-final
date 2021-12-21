@@ -1,0 +1,36 @@
+<tr>
+  <td>###num###</td>
+  <td>###proveedor###</td>
+  <td>
+    <button class="btn btn-sm btn-secondary" id="edita-proveedor-###id###">
+        <i class="far fa-edit"></i>
+    </button>
+    <button class="btn btn-sm btn-danger" id="elimina-proveedor-###id###">
+        <i class="far fa-trash-alt"></i>
+    </button>
+  </td>
+</tr>
+
+
+<script>
+  $('#elimina-proveedor-###id###').on( 'click', ()=>{
+
+    let id_proveedor = '###id###';
+
+    if( confirm('Está Seguro??') )
+    {
+      let data = {'id':'eliminaProveedor', 'id_proveedor':id_proveedor};
+      ajx('#multiverso', data);
+    }
+  });
+
+  $('#edita-proveedor-###id###').on('click', ()=>{
+
+      let id_proveedor = '###id###';
+      let data = {'id':'editaProveedor', 'id_proveedor':id_proveedor};
+
+      ajx('#multiverso', data);
+
+  });
+
+</script>

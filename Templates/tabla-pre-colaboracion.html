@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-sm-4">
+    <label for="">
+        <strong>
+          CÓDIGO COLABORACION
+        </strong>
+    </label>
+  </div>
+  <div class="col-sm-4">
+    <label for="">
+        <strong>
+          EMPRESA / CLIENTE
+        </strong>
+    </label>
+  </div>
+  <div class="col-sm-4">
+    <label for="">
+        <strong>
+          REPRESENTANTE
+        </strong>
+    </label>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-sm-4">
+  <p class="h5">###codigo###</p>
+</div>
+<div class="col-sm-4">
+  <p class="h5">###empresa###</p>
+</div>
+<div class="col-sm-4">
+  <p class="h5">###representante###</p>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+  <hr>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+
+    Hay un total de <strong>###total-recs###</strong> registro(s) ingresado(s)
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>num</th>
+          <th>Producto</th>
+          <th>Codigo Producto</th>
+          <th>Cantidad</th>
+          <th>Unidades</th>
+          <th>Ingresado a Inventario</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        ###tr###
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<div class="row">
+<!--
+  <div class="col-sm-6">
+    <button class="btn btn-block btn-secondary"
+            id="ingresar-colaboracion-inventario">
+      <i class="fas fa-angle-double-right"></i> Ingresar a Inventario
+    </button>
+  </div>
+-->
+
+
+  <div class="col-sm-12">
+
+    ###ingresa-inventario###
+
+    <button class="btn btn-sm  btn-secondary">
+      <i class="fas fa-angle-double-right"></i> Agregar insumos
+    </button>
+  </div>
+</div>
+<br>
+<script type="text/javascript">
+
+  $('#ingresar-colaboracion-inventario').on('click', ()=>{
+
+    let token           = '###codigo###';
+    let codigo_producto = $('.codigo_producto').serialize();
+    let cantidad        = $('.cantidad').serialize();
+
+    if( confirm( 'Si efectúa esta acción, modificará los stock del inventario' ) )
+    {
+      let data = {'id':'modificarInventario',
+                  'token':token,
+                  'codigo_producto':codigo_producto,
+                  'cantidad':cantidad  };
+
+      ajx('#tablilla',data);
+    }
+  });
+
+
+</script>

@@ -1,0 +1,84 @@
+<tr>
+  <td>
+    <a href="#" 
+        class="btn btn-light"
+        data-toggle="modal"
+        data-target="#imagen-modal-###id###">
+      <img src="dox/###imagen###" class="img-fluid img-rounded" width="40%"> 
+    </a>
+   
+   
+  </td>
+  <td>
+    <strong>
+      ###nombre### 
+    </strong>
+    <br>
+       
+    <button id='muestra-###id###' class="btn btn-sm btn-secondary"
+    data-toggle="tooltip" data-placement="top" title="###nombre2###"
+    >
+      <i class="far fa-plus-square"></i> Full Name
+    </button>
+    <br>
+    <div id="nombre-completo-###id###"></div>
+  </td>
+  <td>###codigo###</td>
+
+  <td>###ubicacion### / ###sub_ubicacion###</td>
+
+  <!--
+    <td>###tipo###</td>
+
+  -->
+  <td>###sub_tipo###</td>
+  <td>
+      <div id="espacio-stock-###id###">
+        ###stock###
+      </div>
+  </td>
+  <td>###unidad###</td>
+  <td>###alerta###</td>
+  <td>
+
+    ###modal-img###
+    <button
+          class="btn btn-sm btn-secondary"
+          data-toggle="modal"
+          data-target="#modal-historico-###id###"
+          data-placement ="top" title = "Movimientos Históricos"
+          >
+      <i class="far fa-eye"></i>
+    </button>
+    ###modal-historico###
+    ###editar###
+
+    &nbsp;
+    ###delete###
+  </td>
+</tr>
+<script>
+
+  $('#delete-###id###').on( 'click', ()=>{
+
+    let id_inventario = "###id###";
+    let elemento = "###nombre###";
+    let data = { 'id':'deleteInventario','id_inventario':id_inventario,'elemento':elemento };
+
+    if( confirm( "Está seguro de eliminar este registro" ) )
+    {
+      ajx('#multiverso',data);
+    }
+
+
+  } );
+
+
+  $('#editar-###id###').on('click', ()=>{
+    let id_inventario = "###id###";
+    let data = { 'id':'editarInventario','id_inventario':id_inventario };
+
+    ajx('#multiverso',data);
+
+  });
+</script>

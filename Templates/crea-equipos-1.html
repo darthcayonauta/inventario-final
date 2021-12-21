@@ -1,0 +1,74 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-10">
+            <p class="h5">
+                <strong>
+                    <i class="far fa-arrow-alt-circle-right"></i>  Arma tu Equipo 
+                </strong>
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+            <div class="raya"></div>
+      </div>
+    </div>
+    <br>
+    ###menu-aux###
+    <br>
+    <div id="lista-insumos">
+        <div class="row">
+            <div class="col-sm-10">
+                <p class="h6">
+                    <i class="fas fa-angle-double-right"></i> 1. Selecciona un Nombre y Elige los componentes
+                </p>
+                <hr>
+            </div>
+        </div>    
+        <div class="row">
+            <div class="col-sm-2">
+                Nombre de Equipo
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="nombre_equipo" id="nombre_equipo">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                ###tabla-insumos###                
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-8">
+                <button class="btn btn-block btn-secondary rounded-pill outline-line-gris"
+                    id="send"
+                >
+                <i class="fas fa-angle-double-right"></i> Enviar Datos
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<script>
+    $( '#send' ).on( 'click', ()=>{
+        
+        let nombre_equipo = $('#nombre_equipo').val();
+        let id_insumo     = $('.id_insumo').serialize();  
+
+        if( nombre_equipo == '' )
+        { alert('Debe darle un Nombre al Equipo');  return false; }
+        else
+            if( !validaChain( id_insumo ) )
+            { alert( "Debe Seleccionar a lo menos un insumo" ); return false; }
+            else{
+
+                let data = { 'id':'ingresaEquipo1', 'nombre_equipo':nombre_equipo,'id_insumo':id_insumo };
+
+                ajx('#lista-insumos', data);
+            }
+    });
+</script>

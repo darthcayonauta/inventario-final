@@ -1,0 +1,78 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>
+                <button class="btn btn-sm btn-secondary outline-line-gris" id="buscar">
+                    Abrir/Cerrar Buscar
+                </button>              
+            </p>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="raya"></div>
+      </div>
+    </div>
+  <br>
+    ###menu-aux###
+  <br>
+  <div class="row">
+    <div class="col-sm-8">
+      <div id="espacio-buscar">
+        ###buscar###
+      </div>  
+    </div>
+  </div>  
+  <br>
+  <div class="row">
+    <div class="col-sm-8">
+      <div id="espacio-tabla">
+          
+            ###tabla###    
+        </div>
+    </div>
+  </div>
+  </div>
+  <script>
+
+    $('#espacio-buscar').hide();
+
+    $( '#buscar' ).on( 'click', ()=>{
+      $('#espacio-buscar').toggle( 300 );
+    });
+
+    $('#buscar-btn').on( 'click', ()=>{
+
+      let guiaDespacho = $( '#guia-despacho' ).val();
+
+      if( guiaDespacho=='')
+      { 
+        alert( 'Debe ingresar una guía de despacho' ); 
+        return false; 
+      }else{
+
+        let data = { 'id':'buscarGuiaDespacho', 'guia-despacho':guiaDespacho };
+        ajx('#espacio-tabla' , data) ;
+
+      }
+    });
+
+    $('#buscar-guia-despacho').on( 'click', ( event )=>{  
+
+      let guiaDespacho = $( '#guia-despacho' ).val();
+
+      if( guiaDespacho=='')
+      { 
+        alert( 'Debe ingresar una guía de despacho' ); 
+        return false; 
+      }else{
+
+        let data = { 'id':'buscarGuiaDespachoEgreso', 'guia-despacho':guiaDespacho };
+        ajx('#espacio-tabla' , data) ;
+
+      }
+
+    } );
+
+  </script>

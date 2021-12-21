@@ -1,0 +1,52 @@
+<tr bgcolor="###color###">
+    <td>
+        <strong>
+                ###num###
+        </strong>
+    </td>
+    <td>###usuario###       </td>
+    <td>###email###         </td>
+
+    <td>
+        <div id="espacio-estado-###id_usuario###">
+                <strong>
+                    ###estado####
+                </strong>
+        </div>
+    </td>
+    <td>
+    </td>
+    <td>
+        <button class="btn btn-sm btn-danger" id="cambia-estado-###id_usuario###">
+                <i class="fas fa-random"></i> Eliminar
+        </button>
+        <button class="btn btn-sm btn-secondary" id="editar-###id_usuario###">
+                <i class="fas fa-random"></i> Editar
+        </button>
+
+    </td>
+ </tr>
+ <script>
+
+    $('#editar-###id_usuario###').on( 'click', ()=>{
+
+      let id_usuario = '###id_usuario###';
+
+      let data = { 'id_usuario':id_usuario, 'id':'editaUsuario' };
+      ajx( '#multiverso', data )
+
+    });
+
+     $('#cambia-estado-###id_usuario###').on(  'click' , ( e )=>{
+
+        e.preventDefault();
+
+        let id_usuario = '###id_usuario###';
+
+        if( confirm( 'Estás Seguro???' ) )
+        {
+            let data = { 'id_usuario':id_usuario, 'id':'cambiaEstadoUsuario' };
+            ajx( '#espacio-estado-###id_usuario###', data );
+        }
+     });
+ </script>

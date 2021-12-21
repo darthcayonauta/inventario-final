@@ -1,0 +1,150 @@
+<div class="row">
+    <div class="col-sm-6">
+        Requerimiento
+    </div>
+    <div class="col-sm-6">
+        Unidad de Medida
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="text" id="requerimiento-###id###"
+               name="requerimiento-###id###"
+               class="form-control"
+               value="###requerimiento###"
+               placeholder="Ingrese la cantidad requerida">
+    </div>
+    <div class="col-sm-6">
+        ###select-unidad###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        Insumo
+    </div>
+    <div class="col-sm-6">
+        Proveedor
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        ###select-insumo###
+    </div>
+    <div class="col-sm-6">
+        ###select-proveedor###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        Stock
+    </div>
+    <div class="col-sm-6">
+        A Comprar
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="text" id="stock-###id###"
+               name="stock"
+               class="form-control"
+               value="###stock###"
+               placeholder="Ingrese Stock">
+    </div>
+    <div class="col-sm-6">
+        <input type="text" id="a_comprar-###id###"
+                name="a_comprar"
+                class="form-control"
+                value="###a_comprar###"
+                placeholder="Ingrese a_comprar">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        Precio Unitario
+    </div>
+    <div class="col-sm-6">
+        Valor Total
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <input type="text" id="precio_unitario-###id###"
+               name="precio_unitario"
+               class="form-control"
+               value="###precio_unitario###"
+               placeholder="Ingrese precio_unitario, sin puntos">
+    </div>
+    <div class="col-sm-6">
+        <input type="text" id="valor_total-###id###"
+                name="valor_total"
+                class="form-control"
+                value="###valor_total###"
+                placeholder="Ingrese valor_total, sin puntos">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-6">
+        Seleccione Item
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        ###select-item###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <input type="hidden" id="codigo-###id###" name="codigo-###id###" value="###codigo###">
+        <input type="hidden" id="id_cuerpo_material-###id###" name="id_cuerpo_material-###id###" value="###id###">
+        <button class="btn btn-block btn-secondary" id="send-###id###" data-dismiss="modal">
+            <i class="fas fa-angle-double-right"></i> Actualizar
+        </button>
+    </div>
+</div>
+
+<script>
+    $('#send-###id###').on('click',()=>{
+        let id_material        = '###id###';
+        let requerimiento      = $('#requerimiento-###id###').val();
+        let stock              = $('#stock-###id###').val();
+        let a_comprar          = $('#a_comprar-###id###').val();
+        let precio_unitario    = $('#precio_unitario-###id###').val();
+        let valor_total        = $('#valor_total-###id###').val();
+        let id_unidad          = $('#id_unidad-###id###').val();
+        let id_item            = $('#id_item-###id###').val();
+        let codigo             = $('#codigo-###id###').val();
+        let id_insumo          = $('#id_insumo-###id###').val();
+        let id_proveedor       = $('#id_proveedor-###id###').val();
+
+        if( requerimiento=='' || stock=='' || a_comprar=='' || precio_unitario=='' || valor_total=='' || id_unidad=='' || id_item=='' || id_insumo=='' || id_proveedor=='')
+        {
+            alert("No deje campos en blanco");
+            return false;
+        }else{
+            let data = {
+                        'id_material'       : id_material,
+                        'requerimiento'     : requerimiento,
+                        'stock'             : stock,
+                        'a_comprar'         : a_comprar,
+                        'precio_unitario'   : precio_unitario,
+                        'valor_total'       : valor_total,
+                        'id_unidad'         : id_unidad,
+                        'id_item'           : id_item,
+                        'codigo'            : codigo,
+                        'id_insumo'         : id_insumo,
+                        'id_proveedor'      : id_proveedor,
+                        'id'                :'editaMaterialData'};
+            
+           ajx('#results',data);  
+           //alert('que pasa');
+           //return false;     
+           
+        }
+    });
+
+</script>

@@ -1,0 +1,197 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <strong>
+                <i class="far fa-arrow-alt-circle-right"></i> ###title###
+                </strong>
+              </p>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+      <br>
+      ###menu_aux###
+      <br>
+      <div id="titulo-encabezado">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label for="">
+                        Ingrese Titulo
+                    </label>
+                </div>
+                <div class="col-sm-10">
+                    <input type="text" 
+                        class="form-control" 
+                        placeholder="Ingrese Titulo"
+                        id="titulo-wea"
+                        name="titulo-wea" 
+                        value="###titulo###">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label for="">
+                        Ingrese Centro
+                    </label>
+                </div>
+                <div class="col-sm-5">
+                    ###select-centro####
+                </div>
+            </div>  
+            <br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <label for="">
+                        Cantidad de Módulos
+                    </label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="Módulos"
+                    id="cantidad-modulos"
+                    name="cantidad-modulos" 
+                    value="###cantidad-modulos###">
+                </div>
+                <div class="col-sm-2">
+                    <label for="">
+                        Número de Jaulas
+                    </label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="Jaulas"
+                    id="cantidad-jaulas"
+                    name="cantidad-jaulas" 
+                    value="###cantidad-jaulas###">
+                </div>
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">
+                            Calidad
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" 
+                        class="form-control" 
+                        placeholder="Calidad"
+                        id="calidad"
+                        name="calidad" 
+                        value="###calidad###">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="">
+                            Cámaras X Jaula
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" 
+                        class="form-control" 
+                        placeholder="camaras_x_jaula"
+                        id="camaras_x_jaula"
+                        name="camaras_x_jaula" 
+                        value="###camaras_x_jaula###">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-###number###">
+                        ###hidden### ###hidden-codigo###
+                        <button class="btn btn-block btn-secondary"
+                                id="###buton_id###"
+                        >
+                            <i class="fas fa-angle-double-right"></i> Siguiente
+                        </button>
+                    </div>
+                    ###button-add###
+                </div>
+                ###modal###
+                
+            </div>
+            <br>
+            <div id="notificacion"></div>
+            <br>
+            <div id="results">###listado###</div>
+    </div>
+<script>
+    $('#send').on('click',(event)=>{
+
+        event.preventDefault();
+
+        let titulo              = $('#titulo-wea').val();
+        let id_centro           = $('#id_centro').val(); 
+        let cantidad_modulos    = $('#cantidad-modulos').val();
+        let cantidad_jaulas     = $('#cantidad-jaulas').val();
+        let calidad             = $('#calidad').val();
+        let camaras_x_jaula     = $('#camaras_x_jaula').val();
+        
+        if( titulo =='' || id_centro=='' || cantidad_jaulas=='' ||  cantidad_modulos=='' ||
+            calidad=='' || camaras_x_jaula == '' )
+        {
+            alert('Todos los campos son obligatorios');
+            return false;
+
+        }else{
+            //en caso que todo sea true
+            let data = { 'titulo'           : titulo,
+                         'id_centro'        : id_centro,
+                         'cantidad_modulos' : cantidad_modulos,
+                         'cantidad_jaulas'  : cantidad_jaulas,
+                         'calidad'          : calidad,
+                         'camaras_x_jaula'  : camaras_x_jaula,
+                         'id'               :'ingresaCabeceraMateriales'};
+
+             ajx( '#titulo-encabezado',data );            
+        }
+    });
+
+    $('#update').on( 'click',( event )=>{
+
+        event.preventDefault();
+
+        let titulo                 = $('#titulo-wea').val();
+        let id_centro              = $('#id_centro').val(); 
+        let cantidad_modulos       = $('#cantidad-modulos').val();
+        let cantidad_jaulas        = $('#cantidad-jaulas').val();
+        let calidad                = $('#calidad').val();
+        let camaras_x_jaula        = $('#camaras_x_jaula').val();
+        let id_encabezado_material = $('#id_encabezado_material').val();
+        let codigo                 = $('#codigo').val();
+
+
+        if( titulo =='' || id_centro=='' || cantidad_jaulas=='' ||  cantidad_modulos=='' ||
+            calidad=='' || camaras_x_jaula == '' )
+        {
+            alert('Todos los campos son obligatorios');
+            return false;
+
+        }else{
+            //en caso que todo sea true
+            let data = { 'titulo'                  : titulo,
+                        'id_centro'                : id_centro,
+                        'cantidad_modulos'         : cantidad_modulos,
+                        'cantidad_jaulas'          : cantidad_jaulas,
+                        'calidad'                  : calidad,
+                        'camaras_x_jaula'          : camaras_x_jaula,
+                        'id_encabezado_material'   : id_encabezado_material,
+                        'codigo'                   : codigo,
+                        'id'                       :'editaCabeceraMateriales'};
+
+            ajx( '#notificacion',data );            
+            }
+    } );
+
+
+</script>

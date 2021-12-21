@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-6">
+    <strong>
+        Codigo
+    </strong>
+  </div>
+  <div class="col-sm-6">
+      <strong>
+          Nombre
+      </strong>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <input  type        = "text"
+            name        = "codigo"
+            id          = "codigo"
+            class       = "form-control"
+            placeholder = "Codigo">
+  </div>
+  <div class="col-sm-6">
+    <input  type        = "text"
+            name        = "titulo"
+            id          = "titulo"
+            class       = "form-control"
+            placeholder = "Nombre de Elemento/Producto">
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-6">
+      <strong>
+          Ubicacion
+      </strong>
+  </div>
+
+    <div class="col-sm-6">
+      <strong>
+        Sub Ubicacion
+      </strong>
+    </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+          ###select-ubicacion###
+  </div>
+    <div class="col-sm-6">
+        <div id="espacio-sub-ubicacion">
+          <select class="form-control" disabled="disabled">
+            <option value="">Seleccione Sub Ubicacion</option>
+          </select>
+          <input type="hidden" name="sub-ubicacion" id="sub-ubicacion" value="">
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-6">
+      <strong>
+          Tipo
+      </strong>
+  </div>
+  <div class="col-sm-6">
+    <strong>
+        Sub Tipo
+    </strong>
+</div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+      ###select-tipo###
+    </div>
+    <div class="col-sm-6">
+      <div id="espacio-sub-tipo">
+        <select class="form-control" disabled="disabled">
+          <option value="">Seleccione Sub Tipo</option>
+        </select>
+        <input type="hidden" name="sub_tipo" id="sub_tipo" value="">
+      </div>
+    </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+      <input type="hidden" name="buscar-action" id="buscar-action"  value="1">
+      <button class="btn btn-block btn-secondary" id="search">
+          <i class="fas fa-search"></i>  Buscar
+      </button>
+  </div>
+</div>
+<br>

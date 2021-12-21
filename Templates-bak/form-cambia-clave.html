@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Formulario de Cambio de Clave</h3>
+    Ambos campos son obligatorios
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-3">
+    Ingrese Clave
+  </div>
+  <div class="col-md-7">
+    <input type="password" id="clave1" placeholder="Ingrese Clave" class="form-control">
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-3">
+    Repita Clave
+  </div>
+  <div class="col-md-7">
+    <input type="password" id="clave2" placeholder="Repita la Clave" class="form-control">
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-7">
+    <button type="button" id="ingrese-clave" class="btn btn-lg btn-primary">
+      <i class="fas fa-pen-square"></i>  Actualizar Clave
+    </button>
+  </div>
+</div>
+<br>
+<input type="hidden" id="yo" value="@@@yo">
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#ingrese-clave').click(function( event ){
+
+          var clave1  = $('#clave1').val();
+          var clave2  = $('#clave2').val();
+          var yo      = $('#yo').val();
+
+          if( clave1 == '' || clave2 == '' )
+          {
+            alert('No pueden haber claves vacias')
+            return false
+          }
+          else
+              if( clave1 != clave2 )
+              {
+                alert('las claves no coinciden')
+                return false
+
+              }else{
+
+                data = {'id':'registro-clave-nueva','clave':clave1,'yo':yo};
+                ajxSimple('#multiverso',data);
+
+              }
+        })
+        function ajxSimple(target,data)
+        {
+          $.ajax({
+                      type: "POST",
+                      url: "response.php",
+                      data: data,
+
+                      success: function( response ) {
+                        console.log(response);
+
+                      $(target).html(response);
+
+                      },
+
+                      error: function( response ) {
+                      console.log(response);
+                      window.location.reload(true);
+                    }
+                });
+        }
+
+    });
+
+</script>

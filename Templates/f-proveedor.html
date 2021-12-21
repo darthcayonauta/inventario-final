@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-sm-3">
+        Ingrese Proveedor
+    </div>
+    <div class="col-sm-9">
+        <input type="text" name="nombre_proveedor" 
+               id="nombre_proveedor"
+               class="form-control"
+               placeholder="Ingrese proveedor"
+               >
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-3">
+        Ingrese Rut
+    </div>
+    <div class="col-sm-9">
+        <input type="text" name="rut_proveedor" 
+               id="rut_proveedor"
+               class="form-control"
+               placeholder="Ingrese Rut sin puntos ni dv, ej 11111111-1"
+               >
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-block btn-secondary outline-line-gris"
+                id="ingresa_proveedor"
+                data-dismiss="modal"
+        >
+        <i class="fas fa-angle-double-right"></i> Ingresar Datos
+        </button>
+    </div>
+</div>
+
+
+<script>
+    $( '#ingresa_proveedor' ).on( 'click' , ()=>{
+
+        let nombre_proveedor = $('#nombre_proveedor').val();
+        let rut_proveedor    = $('#rut_proveedor').val();
+
+        if( nombre_proveedor == '' )
+        {
+            alert( 'Debe ingresar un nombre de proveedor' );
+            return false;
+        }
+        else if( rut_proveedor =='' )
+        {
+            alert( 'Debe ingresar un rut de proveedor' );
+            return false;
+        }
+        else if( !validaRut( rut_proveedor ) )
+        {
+            alert( 'Debe ingresar un rut válido' );
+            return false;
+
+        }else{
+
+            let data = { 'id'               :'ingresaProveedorFromIngreso',
+                         'nombre_proveedor' :nombre_proveedor,
+                         'rut_proveedor'    :rut_proveedor   };
+
+            ajx( '#combo-proveedor' , data  );
+
+        }
+    });
+</script>

@@ -1,0 +1,160 @@
+<div class="row">
+    <div class="col-sm-2">
+        <strong>
+            Numero de Guia
+        </strong>
+    </div>
+    <div class="col-sm-6">
+        ###num_guia###
+        <input type="hidden" name="token" id="token" value="###token###">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+       <strong>
+           Fecha
+       </strong> 
+    </div>
+    <div class="col-sm-6">
+        ###fecha###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+       <strong>
+           RS/OT
+       </strong> 
+    </div>
+    <div class="col-sm-6">
+        ###rs###
+    </div>
+</div>
+
+<br>
+<div class="row">
+    <div class="col-sm-2">
+        <strong>
+            Cliente
+        </strong>
+    </div>
+    <div class="col-sm-6">
+        ###cliente###   
+    </div>
+</div>
+<br>
+<div id="tabla-def">
+        <div id="lista-insumo">
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr>
+                    <strong>
+                        <i class="fas fa-stream"></i> COMPLETE INFORMACION ( Egresos )
+                    </strong>
+                
+                </div>
+            </div>
+            <br>
+            ###tabla-insumos###
+        </div>
+        <br><br>
+        <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-block btn-secondary outline-line-gris" id="send-update">
+                <i class="fas fa-angle-double-right"></i> Ingresar 
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#send-update').on( 'click' , ()=>{
+        let id_detalle  = $('.id_detalle').serialize();
+        let id_insumo   = $('.id_insumo').serialize();  
+        let cantidad    = $('.cantidad').serialize();            
+        let stock       = $('.stock').serialize();
+        let token       = '###token###';    
+
+        if( !compara( stock,cantidad )  )
+        {
+            alert( "Existen cantidades superiores al stock, modifique valores" );
+            return false;
+
+        }else if( !validaCantidad( cantidad ) ){
+
+            alert( "Ingrese todas las cantidades" );
+            return false;
+
+        }
+        else{  
+
+            if( confirm( "Esta seguro de ingresar esta informacion??" ) )
+            {
+                let data = { 'id':'finishEgresos' , 
+                            'id_detalle'   :id_detalle,
+                            'id_insumo'    :id_insumo,                        
+                            'cantidad'     :cantidad,
+                            'stock'        :stock, 
+                            'actualiza'    : 1   , 
+                            'token'        : token  
+                        }
+                        
+                        ajx( '#tabla-def' , data );
+            }
+        }
+    });
+
+    function segmenta( chain,simbolo )
+    {
+        var div = chain.split( simbolo );
+        return div;
+    }
+    
+    function compara(chainStock, chainCantidad) {
+        
+        var arrStock     = segmenta( chainStock,"&" );
+        var arrCantidad  = segmenta( chainCantidad,"&" );
+        var auxStock     = 0;
+        var auxCantidad  = 0;    
+
+        var j = 0;
+
+        for (let i = 0; i < arrStock.length; i++) {
+            
+            auxStock    = segmenta( arrStock[i],"=" );
+            auxCantidad = segmenta( arrCantidad[i],"=" );
+
+            if(  parseInt( auxCantidad[1],10 ) > parseInt( auxStock[1],10)  )
+                j++;               
+            }
+
+         if( j > 0 ) 
+                return false;
+         else   return true; 
+
+    }
+
+
+    function validaCantidad( cadena )
+    {
+        var arrCadena = divideChain(cadena,"&");
+
+        var j   = 0;
+        var aux = "";
+
+        for (var i = 0; i < arrCadena.length; i++) {
+                aux = divideChain (arrCadena[i],"=");
+
+                if(aux[1] == '' )
+                        j++;
+        };
+
+        if( j > 0)
+                return false;
+        else
+                return true
+    }
+
+
+</script>

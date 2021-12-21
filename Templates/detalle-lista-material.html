@@ -1,0 +1,154 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <strong>
+                <i class="far fa-arrow-alt-circle-right"></i> Detalle de Listas de Material
+                </strong>
+              </p>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+      <br>
+      ###menu_aux###
+      <br>
+      <div class="row">
+          <div class="col-sm-12">
+              <strong>
+                  Centro : 
+              </strong>
+              ###centro###,
+              ###num_modulos### Módulos, ###num_jaulas### Jaulas (<strong>Sistema de Monitoreo</strong> calidad ###calidad###, camaras/jaula ###camaras_x_jaula###) 
+          </div>
+      </div>
+      <br>
+
+      <div class="resumen-encabezado" id="resumen-encabezado">
+      <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Titulo
+            </label>
+        </div>
+        <div class="col-sm-3">
+            <p class="h6">
+                <strong>
+                    ###titulo###
+                </strong>
+            </p>  
+        </div>
+        <div class="col-sm-2">
+            <label for="">
+                Código
+            </label>
+        </div>
+        <div class="col-sm-3">
+            <p class="h6">
+                <strong>
+                    ###codigo###
+                    <input type="hidden" name="codigo" id="codigo" value="###codigo###" >
+                </strong>
+            </p>    
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-sm btn-success"
+                    data-toggle="tooltip" 
+                    data-placement="top"
+                    title="Ver / Ocultar Detalles"   
+                    id="showHide">
+                    <i class="far fa-eye"></i>
+            </button>
+            <a class="btn  btn-danger"
+                href="lista-materiales.php?codigo=###enc-codigo###"
+                target="_blank"
+                role="button"
+                data-toggle="tooltip" 
+                data-placement="top"
+                title="Mostrar en PDF"   
+            >
+            <i class="fas fa-file-pdf"></i> PDF
+        </a>
+        </div>
+    </div>
+    <div id="wea">
+    <hr>
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Centro
+            </label>
+        </div>
+        <div class="col-sm-5">
+            <p class="h6">
+                ###centro###
+            </p>
+        </div>
+    </div>  
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Cantidad de Módulos
+            </label>
+        </div>
+        <div class="col-sm-3">
+                ###num_modulos###
+        </div>
+        <div class="col-sm-2">
+            <label for="">
+                Número de Jaulas
+            </label>
+        </div>
+        <div class="col-sm-3">           
+                ###num_jaulas###           
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">
+                    Calidad
+                </label>
+            </div>
+            <div class="col-sm-3">            
+                    ###calidad###
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">
+                    Cámaras X Jaula
+                </label>
+            </div>
+            <div class="col-sm-3">
+                    ###camaras_x_jaula###
+            </div>
+        </div>
+    </div>
+        <br>
+    
+</div>
+<br>
+<br>
+
+
+      <div class="row">
+        <div class="col-sm-12">
+            ###listado###
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $('#wea').hide();
+
+    $("#showHide").on("click",()=>{
+        $("#wea").toggle(400);
+    });
+</script>

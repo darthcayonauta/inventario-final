@@ -1,0 +1,58 @@
+<tr>
+  <td>###num###</td>
+  <td>###destino###</td>
+  <td>
+    <div id="espacio-cliente-###id###">
+      ###cliente.empresa###
+    </div>
+  </td>
+  <td>###asignar###</th>
+</tr>
+
+<script type="text/javascript">
+  $('#quitar-cliente-###id###').on( 'click', ( event )=>{
+
+    event.preventDefault();
+
+    let id_destino = '###id###';
+    let id_cliente = '###id_cliente###';
+
+    if( confirm( "Está Seguro?" ) )
+    {
+      let data = {'id':'quitarAsignacion',
+                  'id_cliente': id_cliente,
+                  'id_destino': id_destino  };
+
+      ajx('#espacio-cliente-###id###',data);
+    }
+  } );
+
+  $('#cambia-cliente-###id###').on( 'click', ( event )=>{
+
+    event.preventDefault();
+
+    let id_destino = '###id###';
+    let id_cliente = '###id_cliente###';
+
+    let data = {'id':'cambiaAsignacion',
+                'id_cliente': id_cliente,
+                'id_destino': id_destino  };
+
+      ajx('#multiverso',data);
+
+  } );
+
+
+
+
+
+$('#asignar-cliente-###id###').on('click',( event )=>{
+
+  let id_destino = '###id###';
+  let data={'id':'asignaCliente', 'id_destino': id_destino};
+
+  ajx( '#multiverso',data );
+
+});
+
+</script>

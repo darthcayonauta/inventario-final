@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1;viewport-fit=cover">
+    
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<!-- possible content values: default, black or black-translucent -->
+	<meta name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent">
+	<title>INVENTARIO WEB SOCMA</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="js/Particles.js"></script>
+	<script src="js/config.js"></script>
+
+	<script>
+	
+		$(document).ready(function(){
+			
+			ActivateParticular();
+			
+		});
+	</script>
+	<style>
+		body{
+			
+			margin: 0px;
+			font-family: sans-serif;
+		}
+		#background{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(45deg,rgba(186,89,29,0.85),rgba(168,0,255,0.85));
+			background: linear-gradient(45deg,rgb(186,89,29,0.85),rgba(4, 0, 255, 0.932));
+		}
+		#contenido{
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		#form{
+			width: 400px;
+			height: 400px;
+			background: linear-gradient(45deg,rgba(255,88,0,0.50),rgba(167,0,255,0.085));
+			box-shadow: 0px 0px 10px rgba(52,52,52,.35);
+			backdrop-filter:blur(5px);
+			border-radius: 3px;
+			display: flex;
+			flex-direction: column;
+			padding-left: 20px;
+			padding-right: 20px;
+			text-align: center;
+			align-items: center;
+			animation: fadeIn .5s  linear forwards;
+			
+		}
+		#form h3{
+			text-align:center;
+			font-size: 30px;
+			color: white;
+			cursor: default;
+			-webkit-user-select:none;
+			animation: topIn .5s  linear forwards;
+			
+		}
+		#form .text{
+			width: calc(100% - 30px);
+			min-height: 35px;
+			margin-bottom: 20px;
+			background: none;
+			border: none;
+			background: rgba(255, 255, 255, 0.11);
+			outline: none;
+			padding-left: 10px;
+			color: white;
+			font-size: 20px;
+			animation: leftIn .5s linear forwards;
+			animation-delay: calc(0.08s * var(--i));
+			transform:translateX(-100%);
+			opacity: 0;
+			
+		}
+		#form .text::placeholder{
+			color: rgba(255, 255, 255, 0.38);
+		}
+		#form .boton{
+			min-height: 35px;
+			min-width: 200px;
+			background: none;
+			border:1px solid white;
+			color: white;
+			font-size: 15px;
+			border-radius: 30px;
+			-webkit-transition:all .5s ease;
+			animation:rigIn .5s linear forwards;
+			opacity: 0;
+		}
+		#form .boton:hover{
+			background: rgba(93,56,219,0.53);
+			-webkit-transition:all .5s ease;
+		}
+		#form a{
+			color: white;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			animation: bttmIn .6s linear forwards;
+		}
+		#creditos{
+			margin-top: 20px;
+			color: rgba(255,255,255,0.38);
+			cursor: default;
+			-webkit-user-select:none;
+			animation: bttmIn .6s linear forwards;
+		}
+		/*Animaciones*/
+		
+		@keyframes fadeIn{
+			from{
+				opacity: 0;
+			}
+			to{
+				opacity: 1;
+			}
+		}
+		
+		
+		/*Top*/
+		@keyframes topIn{
+			
+			0%{
+				
+				transform:translateY(-300%);
+				opacity: 0;
+			}
+			100%{
+				
+				transform:translateY(0%);
+				opacity: 1;
+			}
+		}
+		
+		/*left*/
+		
+		@keyframes leftIn{
+			
+			0%{
+				
+				transform:translateX(-100%);
+				opacity: 0;
+			}
+			100%{
+				
+				transform:translateY(0%);
+				opacity: 1;
+			}
+		}
+		
+		@keyframes rigIn{
+			
+			0%{
+				
+				transform:translateX(200%);
+				opacity: 0;
+			}
+			100%{
+				
+				transform:translateY(0%);
+				opacity: 1;
+			}
+		}
+		
+		@keyframes bttmIn{
+			
+			0%{
+				
+				transform:translateY(300%);
+				opacity: 0;
+			}
+			100%{
+				
+				transform:translateY(0%);
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="background">
+		
+	</div>
+	<div id="contenido">
+		
+		<div id="form">
+		 <form action="inicio.php" method="POST" onsubmit="return valida();">
+			<h3>Acceso Inventario</h3>
+			<input type="text" style="--i:0" class="text"       id="email"  name="email"  placeholder="Ingrese Usuario">
+			<input type="password"  style="--i:1" class="text"  id="clave"  name="clave"  placeholder="Password">
+			
+			<input class="boton" type="submit" value="Entrar">									
+			<div id="creditos">By cgh-socma</div>
+			<br>
+			<div id="imahg">
+				<img src="img/logo-socma-2.png"  width="40%" alt="">
+			</div>
+		</form>	
+		</div>
+		
+	</div>
+	
+</body>
+</html>
+
+<script type="text/javascript">
+		function valida() {
+
+		let email = $('#email').val();
+		let clave = $('#clave').val();
+
+		if( email == '' || clave == '' )
+		{ alert( 'Ambos campos son obligatorios' ); return false; }
+		else return true;
+
+	}
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

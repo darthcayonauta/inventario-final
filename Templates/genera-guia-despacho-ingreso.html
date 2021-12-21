@@ -1,0 +1,159 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>                          
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+<br>
+###menu-aux###
+<br>
+<div id="espacio-trabajo">
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Numero de Guia
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="num_guia" id="num_guia" placeholder="Ingrese Numero de Guia de Despacho">
+            <div id="espacio-num-guia"></div>
+            <input type="hidden" name="token" id="token" value="###token###">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Fecha
+        </div>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Ingrese Fecha">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Proveedor
+        </div>
+        <div class="col-sm-6">
+            <div id="combo-proveedor">
+                ###select-proveedor###   
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-sm btn-secondary rounded-pill outline-line-gris" 
+                    data-toggle="modal"
+                    data-target="#f-proveedor"       
+            >
+                No Existe Proveedor ?
+            </button>
+
+            ###modal###
+
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            Tipo Documento
+        </div>
+        <div class="col-sm-6">
+            ###select-tipo-documento###
+        </div>
+    </div>
+
+    <br>
+    <div id="lista-insumo">
+        <div class="row">
+            <div class="col-sm-11">
+                <hr>
+                <strong>
+                    <i class="fas fa-stream"></i> SELECCIONE LOS INSUMOS PARA LA GENERACION DE LA GUIA DE DESPACHO
+                </strong>
+            
+            </div>
+        </div>
+        <br>
+        ###tabla-insumos###
+    </div>
+    <br><br>
+<div class="row">
+    <div class="col-sm-11">
+        <button class="btn btn-block btn-secondary outline-line-gris" id="send">
+            <i class="fas fa-angle-double-right"></i> Ingresar 
+        </button>
+    </div>
+</div>
+</div>
+
+</div>
+<br>
+<script>
+
+    $('#num_guia').on( 'change', ()=>{
+
+        $('#espacio-num-guia').show(300);
+
+
+        let num = $('#num_guia').val();
+
+        if( $('#num_guia').val() != '' )
+        {
+            let data = {'id':'verificaNumGuia','num_guia': num };
+            ajx( '#espacio-num-guia', data );
+
+            setTimeout( function(){
+            $('#espacio-num-guia').hide(300)
+            },4000 );
+        }else{
+         
+            alert( 'Ingrese un numero de guia de despacho' );
+            return false;
+
+        }
+    } );
+
+
+    $('#send').on( 'click' , ( event )=>{
+
+        event.preventDefault();
+        let num_guia            = $('#num_guia').val();
+        let fecha               = $('#fecha').val();
+        let id_proveedor        = $('#id-proveedor').val();
+        let token               = $('#token').val();
+        let id_tipo_documento   = $('#id_tipo_documento').val();
+        let id_insumo           = $(".id_insumo").serialize();
+
+        if( num_guia == '' )
+        { alert( 'Debe Ingresar Guia de Despacho' ); return false; }
+        else if( fecha == '' )
+        { alert( 'Debe Fecha de Ingreso' ); return false; }
+        else if ( id_tipo_documento == '' )
+        { alert('debe ingresar un tipo de documento'); return false;  }
+        else if( id_proveedor == '' )
+        { alert( 'Debe Ingresar un Proveedor' ); return false; }
+        else if( !validaChain( id_insumo ) )
+        { alert( 'Debe Seleccionar a lo menos un insumo' ); return false; }
+        else{
+        
+                if( confirm( "Esta seguro de ingresar esta informacion?" ) )
+                {
+                    let data = { 'id'               :'generaGuiaDespacho',
+                                'num_guia'          :num_guia,
+                                'fecha'             :fecha,
+                                'id_proveedor'      :id_proveedor,   
+                                'token'             :token,
+                                'id_insumo'         :id_insumo, 
+                                'id_tipo_documento' :id_tipo_documento,            
+                };
+
+                ajx( '#espacio-trabajo' , data ); 
+                }else return false;
+            
+        }
+    })
+</script>

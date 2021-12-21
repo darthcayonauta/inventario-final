@@ -1,0 +1,86 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-10">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Proveedores
+        </strong>
+          ( ###title### ) <a href="content-page.php?id=bGlzdGFyLXByb3ZlZWRvcmVz" class="btn btn-sm btn-secondary">
+                [ Ir a Listado ]
+          </a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Nombre de Proveedor</label>
+    </div>
+    <div class="col-sm-8">
+      <input type ="text"
+             name ="nombre_proveedor"
+             id   ="nombre_proveedor"
+             value="###nombre_proveedor###"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10">
+      ###hidden###
+      <button  class="btn btn-info btn-block" id="###id_button###" type="button">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+      </button>
+      <br>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10">
+        <div id="notificacion"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  $('#update').on('click', () => {
+    let nombre_proveedor = $('#nombre_proveedor').val();
+    let id_proveedor     = $('#id_proveedor').val();
+
+    if( nombre_proveedor == '' )
+    {
+      alert('Debe ingresar un nomrbe');
+      return false;
+    }else{
+
+      let data = {'id'                :'editaProveedorData',
+                   'nombre_proveedor' : nombre_proveedor,
+                   'id_proveedor'     : id_proveedor
+                  };
+      ajx( '#notificacion',data );
+
+    }
+  });
+  
+  $('#send').on('click', () => {
+    let nombre_proveedor = $('#nombre_proveedor').val();
+
+    if( nombre_proveedor == '' )
+    {
+      alert('Debe ingresar un nomrbe');
+      return false;
+    }else{
+
+      let data = {'id':'ingresaProveedor', 'nombre_proveedor': nombre_proveedor };
+      ajx( '#multiverso',data );
+
+    }
+  });
+</script>

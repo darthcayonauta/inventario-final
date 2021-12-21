@@ -1,0 +1,165 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>                          
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+<br>
+###menu-aux###
+<br>
+<div id="espacio-trabajo">
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Numero
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="num_guia" id="num_guia" placeholder="Ingrese Numero de Guia de Despacho">
+                <div id="espacio-num-guia"></div>
+            <input type="hidden" name="token" id="token" value="###token###">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese RS/OT
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="RS" id="RS" placeholder="Ingrese RS/OT ">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Fecha
+        </div>
+        <div class="col-sm-6">
+            <input type="date" class="form-control" name="fecha" id="fecha" placeholder="Ingrese Fecha">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+        Ingrese Cliente
+        </div>
+        <div class="col-sm-6">
+            <div id="combo-clientes">
+                ###select-cliente###   
+            </div>
+        </div>
+        <div class="col-sm-3">
+
+            <button class=" btn btn-sm
+                            btn-secondary
+                            rounded-pill 
+                            outline-line-gris"
+                            
+                    data-toggle="modal" 
+                    data-target = "#f-cliente"       
+                            
+                            >
+                No Existe el Cliente?
+            </button>
+
+           ###modal### 
+
+        </div>
+    </div>
+    <br>
+    <div id="lista-insumo">
+        <div class="row">
+            <div class="col-sm-11">
+                <hr>
+                <strong>
+                    <i class="fas fa-stream"></i> SELECCIONE LOS INSUMOS PARA LA GENERACION DE LA GUIA DE DESPACHO
+                </strong>
+            
+            </div>
+        </div>
+        <br>
+        ###tabla-insumos###
+    </div>
+    <br><br>
+<div class="row">
+    <div class="col-sm-11">
+        <button class="btn btn-block btn-secondary outline-line-gris" id="send">
+            <i class="fas fa-angle-double-right"></i> Ingresar 
+        </button>
+    </div>
+</div>
+</div>
+</div>
+<br>
+<script>
+
+$('#num_guia').on( 'change', ()=>{
+
+$('#espacio-num-guia').show(300);
+
+
+let num = $('#num_guia').val();
+
+if( $('#num_guia').val() != '' )
+{
+    let data = {'id':'verificaNumGuiaEgreso','num_guia': num };
+    ajx( '#espacio-num-guia', data );
+
+    setTimeout( function(){
+    $('#espacio-num-guia').hide(300)
+    },4000 );
+}else{
+ 
+    alert( 'Ingrese un numero de guia de despacho' );
+    return false;
+
+}
+} );
+
+
+
+
+$('#send').on( 'click' , ( event )=>{
+
+event.preventDefault();
+let num_guia        = $('#num_guia').val();
+let fecha           = $('#fecha').val();
+let id_cliente      = $('#id-cliente').val();
+let token           = $('#token').val();
+let rs              = $('#RS').val();
+let id_insumo       = $(".id_insumo").serialize();
+
+if( num_guia == '' )
+{ alert( 'Debe Ingresar Guia de Despacho' ); return false; }
+else if( fecha == '' )
+{ alert( 'Debe Fecha de Ingreso' ); return false; }
+else if( id_cliente == '' )
+{ alert( 'Debe Ingresar un cliente' ); return false; }
+else if( rs=='' )
+{ alert( 'Debe Ingresar una RS' ); return false;  }
+else if( !validaChain( id_insumo ) )
+{ alert( 'Debe Seleccionar a lo menos un insumo' ); return false; }
+else{
+
+    if( confirm( "Esta seguro de ingresar esta informacion?" ) )
+    {
+        let data = { 'id'       :'generaGuiaDespachoEgreso',
+                     'num_guia'     :num_guia,
+                     'rs'           :rs,
+                     'fecha'        :fecha,
+                     'id_cliente'   :id_cliente,   
+                     'token'        :token,
+                     'id_insumo'    :id_insumo,            
+     };
+
+    ajx( '#espacio-trabajo' , data ); 
+    }else return false;
+
+}
+})
+</script>

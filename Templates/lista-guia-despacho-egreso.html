@@ -1,0 +1,108 @@
+<div class="bloque">
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>                          
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+<br>
+###menu-aux###
+<br>
+
+<div class="row">
+    <div class="col-sm-12">
+        <p class="h5">
+            <strong>
+                Lista de Guías de Despacho 
+                <button class="btn btn-sm btn-secondary outline-line-gris"  id="t-buscar">
+                   Abrir/Cerrar Buscar
+                </button>
+                <button class="btn btn-sm btn-secondary outline-line-gris"  
+                        id="f-buscar">
+                    Buscar por Fecha
+                 </button>
+                 <a href="content-page.php?id=Y3JlYXItZ3VpYS1kZXNwYWNoby1lZ3Jlc28=" class="btn btn-sm btn-info">
+                    Crear Guia de Despacho de Egreso
+                </a>
+            </strong>
+    
+        </p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-10">
+        <div id="buscar">
+            ###buscar###
+        </div>
+        <div id="buscar-fecha">
+            ###buscar-fecha###
+        </div>
+    </div>
+</div>
+
+
+<div id="espacio-tabla">
+<div class="row">
+    <div class="col-sm-12">
+       <div id="miTabla">
+           ###tabla###  
+       </div> 
+    </div>
+</div>
+
+</div>
+
+
+<script>
+    $('#buscar').hide();
+
+    $('#buscar-fecha').hide();
+
+    $('#t-buscar').on( 'click', ( event )=>{
+        $('#buscar').toggle( 300 );
+    });
+
+    $('#f-buscar').on( 'click', ( event )=>{
+        $('#buscar-fecha').toggle( 300 );
+    });
+
+
+    $('#b-quest').on('click', ()=>{
+
+        let num_guia = $('#num_guia').val();
+
+        if( num_guia == '' )
+        {
+            alert('Debe ingresar un numero de guia');
+            return false;
+        }else{
+
+            let data = {'id':'buscaLaGuiaEgreso', 'num_guia':num_guia,'quest':1};
+            ajx( "#miTabla", data );
+
+        }
+});
+
+$('#buscarXfecha').on( 'click',  ()=>{
+    let fechaInicio = $('#fecha-inicio').val();
+    let fechaFinal  = $('#fecha-final').val();
+
+    let data = {'id'            :'buscarXfecha',
+                'fechaInicio'   :fechaInicio,
+                'fechaFinal'    :fechaFinal,    
+                'buscaFecha'    : 1    
+                };
+
+     ajx( "#miTabla", data );            
+
+});
+
+
+</script>

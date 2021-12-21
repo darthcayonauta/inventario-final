@@ -1,0 +1,27 @@
+<tr>
+    <td> ###actions### </td>
+    <td>###archivo###</td>
+    <td>###ruta###</td>
+    <td>###descripcion###</td>
+    <td>###fecha_subida###</td>
+    <td>###categoria###</td>
+    <td>
+        <a href="dox/###ruta###/###archivo###" download="###archivo###" class="btn btn-sm btn-success">
+            <i class="fas fa-download"></i> Descargar
+        </a>
+    </td>
+ </tr>  
+<script>
+    $('#elimina-archivo-###id_archivo###').on( 'click' , ()=>{
+
+        let id_archivo = '###id_archivo###';
+
+        if( confirm( 'Está Seguro ?' ) )
+        { 
+            let data = { 'id_archivo':id_archivo , 'id':'eliminaArchivo' };
+            ajx( '#multiverso' , data );
+         }
+
+    } );
+
+</script>

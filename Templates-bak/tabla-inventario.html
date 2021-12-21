@@ -1,0 +1,177 @@
+
+
+<div class="bloque">
+    <div class="row">
+      <div class="col-sm-10">
+        <p class="h4">
+          <strong>
+          <i class="far fa-arrow-alt-circle-right"></i>  Listado
+          </strong>
+            <a class="btn btn-sm btn-secondary"  href="#" id="buscar">
+                [Buscar]
+            </a>
+            <a  href="excel.php"
+                class="btn btn-sm btn-outline-success"
+                target="_blank">
+                  <i class="far fa-file-excel"></i> Exportar a Excel
+            </a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="raya"></div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        ###menu_aux###
+      </div>
+    </div>
+    <br>
+    <div class="row" id="espacio-buscar">
+      <div class="col-sm-12">
+          ###buscar###
+      </div>
+    </div>
+
+    <script type="text/javascript">
+    $(function () {
+    		$('[data-toggle="tooltip"]').tooltip();
+    })
+    </script>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="alert alert-light">
+            Hay un total de <strong>###total-recs###</strong> registro(s)
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+
+
+
+
+        <table class="table table-striped table-responsive">
+          <thead class="thead-light">
+            <tr>
+              <th>codigo</th>
+              <th>Producto</th>
+              <th>Ubicación</th>
+              <th>Sub Ubicacion</th>
+              <th>Categoría</th>
+              <th>Sub_Categoria</th>
+              <th>Stock</th>
+              <th>Unidad</th>
+              <th>Alerta</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ###tr###
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="raya"></div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-sm-12">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            ###nav-links###
+          </ul>
+      </nav>
+      </div>
+    </div>
+</div>
+<br>
+
+<br>
+<script>
+
+  $('#search').on( 'click',()=>{
+
+    let idUbicacion   = $('#idUbicacion').val();
+    let id_tipo       = $('#id_tipo').val();
+    let sub_ubicacion = $('#sub-ubicacion').val();
+    let sub_tipo      = $('#sub_tipo').val();
+    let codigo        = $('#codigo').val();
+    let nombre        = $('#titulo').val();
+    let buscar_action = 1;
+
+    let data = {  'idUbicacion'   : idUbicacion,
+                  'id_tipo'       : id_tipo,
+                  'sub_ubicacion' : sub_ubicacion,
+                  'sub_tipo'      : sub_tipo,
+                  'codigo'        : codigo,
+                  'nombre'        : nombre,
+                  'buscar_action' : buscar_action,
+                  'id'            :'buscarInventario'  };
+
+    ajx('#multiverso',data );
+
+  });
+
+
+  $('#id_tipo').on('change', function(){
+
+    var id_tipo = $(this).val();
+
+    if( id_tipo == '' )
+    {
+      alert('Debe ingresar un tipo');
+      return false;
+
+    }else{
+
+      var data = {'id':'comboSubTipo', 'id_tipo':id_tipo };
+      ajx('#espacio-sub-tipo', data);
+
+    }
+  });
+
+  $('#idUbicacion').on( 'change', function(){
+
+    var id_ubicacion = $(this).val();
+
+    if( id_ubicacion == '' )
+    {
+      alert('Debe ingresar un valor de ubicación');
+      return false;
+
+    }else{
+
+      var data = {'id':'comboSubUbicacion', 'id_ubicacion':id_ubicacion};
+      ajx( '#espacio-sub-ubicacion', data );
+    }
+  });
+
+  $('#buscar').on('click',()=>{
+  $('#espacio-buscar').toggle(350);
+  });
+
+  $('#espacio-buscar').hide();
+
+  $('.pagination').click( function(){
+
+    var valores = $(this).attr('data');
+    var page     = valores.split("=");
+
+    var data = {
+        'accion':'send',
+        'id':'listarInventario',
+        'page':page[1] };
+
+    ajx('#multiverso',data);
+
+});
+</script>

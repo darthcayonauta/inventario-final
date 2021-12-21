@@ -1,0 +1,28 @@
+<tr>
+  <td>###num###</td>
+  <td>
+     <button type="button" id="ver-colaboracion-###codigo###"
+      class="btn btn-sm btn-secondary">
+       ###codigo###
+     </button>
+  </td>
+  <td>###empresa###</td>
+  <td>###representante###</td>
+  <td>###fecha###</td>
+  <td>###inventariado###</td>
+  <td></td>
+</tr>
+<script type="text/javascript">
+  $('#ver-colaboracion-###codigo###').on('click',(event)=>{
+
+  //  alert("algo");
+
+    event.preventDefault();
+
+    let token = '###codigo###';
+    let data  = {'id':'verColaboraciones', 'token':token};
+
+    ajx( '#tablilla',data );
+
+  });
+</script>

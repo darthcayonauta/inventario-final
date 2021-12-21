@@ -1,0 +1,42 @@
+<tr>
+  <td>###num###</td>
+  <td>###Producto###</td>
+  <td>###codigo_producto###
+      <input type="hidden"
+             name="codigo_producto"
+             id="codigo_producto"
+             class="codigo_producto"
+             value="###codigo_producto###">
+  </td>
+  <td>###cantidad###
+    <input type="hidden"
+           name="cantidad"
+           id="cantidad"
+           class="cantidad"
+           value="###cantidad###">
+  </td>
+  <td>###unidades###</td>
+  <td>###estado###</td>
+  <td>
+    ###button###
+  </td>
+</tr>
+<script type="text/javascript">
+  $('#elimina-colaboracion-###id###').on('click', ()=>{
+
+    let id_colaboracion = '###id###';
+    let token = "###token###";
+
+    //alert( "token:"+token+",id_colaboracion:"+id_colaboracion )
+    if( confirm('Está seguro de Eliminar este registro?')  )
+    {
+      let data = {'id':'eliminaColaboracion',
+                  'id_colaboracion':id_colaboracion,
+                  'token':token
+          };
+
+      ajx( '#espacio-tabla',data );
+
+    }
+  });
+</script>

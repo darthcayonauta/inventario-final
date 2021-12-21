@@ -1,0 +1,208 @@
+<div class="row">
+	<div class="col-md-12">
+		
+		<h5><i class="fas fa-users"></i> @@@TITLE</h5>
+		<hr>
+	</div>	
+</div>
+
+<div class="row">
+	<div class="col-md-8">
+			<strong>Nombre Usuario</strong>
+			<input type="text" name="nombre-apellido" id="nombre-apellido" class="form-control" value="@@@NAMEFULL">
+	</div>
+		
+</div>
+<div class="row">
+	<div class="col-md-4">
+			<strong>Correo Electrónico</strong>
+			<input type="email" name="correo-electronico" id="correo-electronico" class="form-control" value="@@@EMAIL">
+	</div>
+		<div class="col-md-4">
+			<strong>Teléfono Celular</strong>
+			<input type="text" name="celular" id="celular" class="form-control" value="@@@CELULAR">
+	</div>
+</div>	
+
+<div class="row">
+	<div class="col-md-4">
+			<strong>Sexo</strong>
+			@@@SELECT-SEXO@@@
+	</div>		
+</div>	
+
+<div class="row">
+	<div class="col-md-4">
+			<strong>País</strong>
+			@@@SELECT-PAIS@@@
+	</div>		
+</div>	
+
+
+<div class="row">
+	<div class="col-md-6">
+			<strong>Región / Provincia</strong>
+			<div id="region-provincia">	
+					@@@SELECT-REGION@@@
+			</div>	
+</div>
+</div>
+
+<div class="row">
+	<div class="col-md-6">
+			<strong>Ciudad</strong>
+			<div id="ciudad">	
+					@@@SELECT-CIUDAD@@@
+			</div>	
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-6">
+		<strong>Fecha de Nacimiento</strong>
+	</div>
+		
+</div>
+<div class="row">
+	
+	<div class="col-md-3">
+		@@@SELECT-DIA@@@
+	</div>		
+	<div class="col-md-3">
+		@@@SELECT-MES@@@
+	</div>
+	<div class="col-md-3">
+		@@@SELECT-YEAR@@@
+	</div>		
+</div>
+<div class = "row">
+         <div class="col-md-12">
+            <button type="button" id="actualiza-button" class="btn btn-secondary btn-lg btn-block"><i class="fas fa-key"></i> Actualizar </button>
+            <br>
+          </div>
+</div>          
+<div class="alert alert-success" role="alert">
+<i class="fas fa-exclamation-circle"></i> <strong>Nota:</strong> Todos los campos son obligatorios
+</div>
+<br>
+<br>
+<br>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		var combo_pais    = $('#idPais')
+
+			combo_pais.on('change', function() {
+  			var value = $(this).val();
+  
+  			var data = {'id':'displayComboRegionProvincia',
+  						'idPais':value};
+		
+			$.ajax({
+	                type: "POST",
+	                url: "response.php",
+	                data: data,
+	            
+	                success: function( response ) {
+	                  console.log(response);
+
+	                $("#region-provincia").html(response);
+	                 
+	                },
+	              
+	                error: function( response ) {
+	                console.log(response);
+	                window.location.reload(true);
+	              }
+	            });	
+     	});
+
+
+		$('#id_region').on('change', function() {
+  			var value = $(this).val();
+  
+  			var data = {'id':'displayComboCiudad',
+  						'id-region':value};
+		
+		$.ajax({
+                type: "POST",
+                url: "response.php",
+                data: data,
+            
+                success: function( response ) {
+                  console.log(response);
+
+                $("#ciudad").html(response);
+                 
+                },
+              
+                error: function( response ) {
+                console.log(response);
+                window.location.reload(true);
+              }
+            });	
+     });	
+
+
+
+		$('#actualiza-button').click(function(event) {
+
+			var nombre_apellido    = $('#nombre-apellido').val()
+			var correo_electronico = $('#correo-electronico').val()
+			var celular 		   = $('#celular').val()
+			var id_sexo 		   = $('#id_sexo').val()
+			var idPais 			   = $('#idPais').val()
+			var id_region 		   = $('#id_region').val()
+			var id_ciudad 		   = $('#id_ciudad').val()
+			var id_dia 			   = $('#id_dia').val()
+			var id_mes 			   = $('#id_mes').val()
+			var id_year 		   = $('#id_year').val()
+			var yo 				   = @@@YO
+
+			var data = {'id':'actualiza-mis-datos',
+						'nombre-apellido':nombre_apellido,
+						'correo-electronico': correo_electronico,
+						'celular':celular,
+						'id_sexo':id_sexo,
+						'idPais':idPais,
+						'id_region':id_region,
+						'id_ciudad':id_ciudad,
+						'id_dia':id_dia,
+						'id_mes':id_mes,
+						'id_year':id_year,
+						'yo':yo}
+		
+
+
+		if( nombre_apellido == '' || correo_electronico=='' || id_sexo=='' || idPais=='' || id_region=='' || id_ciudad=='' || id_dia=='' || id_mes=='' || id_year=='')
+		{
+			alert('No debes dejar campos vacios')
+			return false
+
+		}else{
+
+					 $.ajax({
+		                              type: "POST",
+		                              url: "response.php",
+		                              data: data,
+		                          
+		                              success: function( response ) {
+		                                console.log(response);
+
+		                              $("#multiverse").html(response);
+		                               
+		                              },
+		                            
+		                              error: function( response ) {
+		                              console.log(response);
+		                              window.location.reload(true);
+		                            }
+		                          });			
+
+		}
+
+		});
+
+	});
+
+</script>

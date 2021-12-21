@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-sm-2">
+        <strong>
+            Numero de Guia
+        </strong>
+    </div>
+    <div class="col-sm-6">
+        ###num_guia###
+        <input type="hidden" name="token" id="token" value="###token###">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+       <strong>
+           Fecha
+       </strong> 
+    </div>
+    <div class="col-sm-6">
+        ###fecha###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+        <strong>
+            Proveedor
+        </strong>
+    </div>
+    <div class="col-sm-6">
+        ###proveedor###   
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-2">
+        <strong>
+            Tipo Documento
+        </strong>
+    </div>
+    <div class="col-sm-6">
+        ###tipo-documento###
+    </div>
+</div>
+<br>
+
+
+<div id="tabla-def">
+        <div id="lista-insumo">
+            <div class="row">
+                <div class="col-sm-12">
+                    <hr>
+                    <strong>
+                        <i class="fas fa-stream"></i> COMPLETE INFORMACION
+                    </strong>
+                
+                </div>
+            </div>
+            <br>
+            ###tabla-insumos###
+        </div>
+        <br><br>
+        <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-block btn-secondary outline-line-gris" id="send-update">
+                <i class="fas fa-angle-double-right"></i> Ingresar 
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#send-update').on( 'click' , ()=>{
+        let id_detalle  = $('.id_detalle').serialize();
+        let id_insumo   = $('.id_insumo').serialize();
+        let valor       = $('.valor').serialize();
+        let cantidad    = $('.cantidad').serialize();
+        let stock       = $('.stock').serialize();
+        let token       = '###token###';    
+
+        //alert( stock )
+
+        if( confirm( "Esta seguro de ingresar esta informacion??" ) )
+        {
+            let data = { 'id':'finishIngresos' , 
+                     'id_detalle'   :id_detalle,
+                     'id_insumo'    :id_insumo,
+                     'valor'        :valor,
+                     'cantidad'     :cantidad,
+                     'stock'        :stock, 
+                     'actualiza'    : 1   , 
+                     'token'        : token  
+
+                    }
+                    
+                    ajx( '#tabla-def' , data );
+        }    
+
+    });
+</script>

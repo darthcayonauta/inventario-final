@@ -1,0 +1,38 @@
+<tr>
+  <td>###num###</td>
+  <td>###item###</td>
+  <td>
+      <button type="button"
+              id="edita-item-###id###" class="btn btn-sm btn-secondary">
+          <i class="far fa-edit"></i>
+      </button>
+      <button type="button"
+              id="elimina-item-###id###" class="btn btn-sm btn-danger">
+          <i class="fas fa-trash"></i>
+      </button>
+  </td>
+</tr>
+
+<script type="text/javascript">
+
+$('#elimina-item-###id###').on( 'click', ( event )=>{
+
+  let id_item = '###id###';
+
+  if( confirm( 'esta seguro de eliminar este registro?' ) )
+  {
+    let data ={ 'id':'eliminaItemProductos', 'id_item':id_item };
+    ajx( '#multiverso', data );
+  }
+
+}  );
+
+$('#edita-item-###id###').on('click',(event)=>{
+
+    let id_item = '###id###';
+    let data ={ 'id':'editaItemProductos', 'id_item':id_item };
+    ajx( '#multiverso', data );
+});
+
+
+</script>

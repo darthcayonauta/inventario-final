@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-sm-2">
+        Nombre Cliente
+    </div>
+    <div class="col-sm-10">
+        <input type="text" name="nombre_cliente" 
+                           id="nombre_cliente"
+                           placeholder="Ingrese al Cliente"
+                           class="form-control"
+                           >
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-block btn-secondary outline-line-gris"
+                data-dismiss="modal"
+                id="ingresa-cliente">
+            Ingresar Datos
+        </button>
+    </div>
+</div>
+
+<script>
+    $('#ingresa-cliente').on( 'click', ( event )=>{
+
+        let nombre_cliente = $('#nombre_cliente').val();
+
+        if( nombre_cliente == '' )
+        {
+           alert( 'Debe ingresar un nombre para el cliente' ); 
+           return false;    
+        }else{
+
+        let data = { 'id':'ingresaClienteFromEgreso' ,
+                      'nombre_cliente':nombre_cliente }; 
+
+        ajx( '#combo-clientes', data );    
+
+
+        }
+    });
+</script>

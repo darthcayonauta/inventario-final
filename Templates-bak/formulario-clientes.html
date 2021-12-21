@@ -1,0 +1,86 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-10">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Clientes
+        </strong>
+          ( ###title### ) <a href="content-page.php?id=bGlzdGEtY2xpZW50ZXM=" class="btn btn-sm btn-secondary">
+                [ Ir a Listado ]
+          </a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Nombre de Clientes</label>
+    </div>
+    <div class="col-sm-8">
+      <input type ="text"
+             name ="nombre_cliente"
+             id   ="nombre_cliente"
+             value="###nombre_cliente###"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10">
+      ###hidden###
+      <button  class="btn btn-info btn-block" id="###id_button###" type="button">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+      </button>
+      <br>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10">
+        <div id="notificacion"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  $('#update').on('click', () => {
+    let nombre_cliente = $('#nombre_cliente').val();
+    let id_cliente     = $('#id_cliente').val();
+
+    if( nombre_cliente == '' )
+    {
+      alert('Debe ingresar un nomrbe');
+      return false;
+    }else{
+
+      let data = {'id'                :'editaClienteData',
+                   'nombre_cliente' : nombre_cliente,
+                   'id_cliente'     : id_cliente
+                  };
+      ajx( '#notificacion',data );
+
+    }
+  });
+
+  $('#send').on('click', () => {
+    let nombre_cliente = $('#nombre_cliente').val();
+
+    if( nombre_cliente == '' )
+    {
+      alert('Debe ingresar un nomrbe');
+      return false;
+    }else{
+
+      let data = {'id':'ingresaCliente', 'nombre_cliente': nombre_cliente };
+      ajx( '#multiverso',data );
+
+    }
+  });
+</script>

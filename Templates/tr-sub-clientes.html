@@ -1,0 +1,44 @@
+<tr>
+  <td>###num###</td>
+  <td>###cliente###</td>
+  <td>###rut###</td>
+  <td>###email###</td>
+  <td>###fono###</td>
+  <td>###empresa###</td>
+  <td>
+    <button type="button"
+            name="edita"
+            id="edita-sub-cliente-###id###"
+            class="btn btn-sm btn-secondary">
+          <i class="far fa-edit"></i>
+    </button>
+
+    <button type="button"
+            name="elimina"
+            id="elimina-sub-cliente-###id###"
+            class="btn btn-sm btn-danger">
+            <i class="fas fa-trash"></i>
+    </button>
+
+  </td>
+</tr>
+
+<script type="text/javascript">
+  $('#elimina-sub-cliente-###id###').on('click',(e)=>{
+
+    let id_subcliente = '###id###';
+
+    if( confirm( 'Está Seguro de eliminar este registro??' ) )
+    {
+        let data = {'id':'eliminaSubCliente', 'id_subcliente': id_subcliente };
+        ajx( '#multiverso', data );
+    }
+  });
+
+ $('#edita-sub-cliente-###id###').on('click', ()=>{
+       let id_subcliente = '###id###';
+       let data = {'id':'editaSubCliente', 'id_subcliente': id_subcliente };
+       ajx( '#multiverso', data );
+ });
+
+</script>

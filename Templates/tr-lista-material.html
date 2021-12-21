@@ -1,0 +1,69 @@
+<tr>
+    <td>###num###</td>
+    <td>
+        <button class="btn btn-sm btn-secondary" 
+                id="detalle-lista-materiales-###codigo###"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="presione el boton para ver el detalle">
+            <i class="fas fa-angle-double-right"></i> ###codigo###
+        </button>
+    </td>
+    <td>###titulo###</td>
+    <td>###centro###</td>
+    <td>###modulos###</td>
+    <td>###jaulas###</td>
+    <td>###camaras_x_jaula###</td>
+    <td>###fecha###</td>
+    <td>
+        <a href="lista-materiales.php?codigo=###enc-codigo###" 
+            class="btn btn-sm btn-outline-danger"
+            target="_blank"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Ver PDF"
+            
+            >
+            <i class="fas fa-file-pdf"></i>
+        </a>
+        <button class="btn btn-sm btn-secondary" id="edita-lista-materiales-###codigo###">
+            <i class="far fa-edit"></i>
+        </button>
+        <button class="btn btn-sm btn-danger" id="elimina-lista-materiales-###codigo###">
+            <i class="fas fa-trash"></i>
+        </button>
+    </td>
+</tr>
+<script>
+    $('#elimina-lista-materiales-###codigo###').on('click',(event)=>{
+        event.preventDefault();
+        let id_material = '###id###';
+        let codigo      = '###codigo###';
+
+        if( confirm( 'Está seguro de eliminar este registro' ) )
+        {
+            let data = {'codigo':codigo, 'id_material':id_material, 'id':'eliminaListaMaterial'}
+            ajx('#multiverso', data);
+        }
+    });
+
+    $('#edita-lista-materiales-###codigo###').on('click',(event)=>{
+        event.preventDefault();
+        let id_material = '###id###';
+        let codigo      = '###codigo###';
+
+        let data = {'codigo':codigo, 'id_material':id_material, 'id':'editaListaMaterial'}
+        ajx('#multiverso', data);
+        
+    });
+
+    $('#detalle-lista-materiales-###codigo###').on('click',(event)=>{
+        event.preventDefault();
+        let id_material = '###id###';
+        let codigo      = '###codigo###';
+
+        let data = {'codigo':codigo, 'id_material':id_material, 'id':'detalleListaMaterial'}
+        ajx('#multiverso', data);
+        
+    });
+</script>

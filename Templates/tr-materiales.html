@@ -1,0 +1,42 @@
+<tr>
+    <td>###requerimiento###</td>
+    <td>###u_medida###</td>
+    <td>###insumo###</td>
+    <td>###proveedor###</td>
+    <td>###stock###</td>
+    <td>###a_comprar###</td>
+    <td>###precio_unitario###</td>
+    <td>###costo_total###</td>
+    <td>###item###</td>
+    <td>
+        <button class="btn btn-sm btn-danger"
+                id   = "elimina-cuerpo-material-###id###"    >
+            <i class="fas fa-trash"></i>
+        </button>
+        <button class="btn btn-sm btn-secondary"
+                
+                data-toggle="modal"
+                data-target="#edita-cuerpo-material-###id###"
+                data-placement ="top" title = "Editar">
+            <i class="far fa-edit"></i>
+        </button>
+        <br>
+        ###modal###
+    </td>
+
+</tr>
+
+<script>
+    $('#elimina-cuerpo-material-###id###').on('click', ( event )=>{
+        let id_cuerpo = '###id###';
+        let codigo    = '###codigo###'; 
+        
+        if( confirm( 'Está seguro de eliminar el registro' )  )
+        {
+            let data = { 'id':'eliminaRegistroCuerpoMaterial',
+                         'id_cuerpo': id_cuerpo , 'codigo':codigo };
+            
+            ajx( '#results', data );                         
+        }
+    });
+</script>

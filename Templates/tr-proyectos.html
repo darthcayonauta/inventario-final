@@ -1,0 +1,38 @@
+<tr>
+    <td>###num###</td>
+    <td>
+        <strong>
+          ###codigo###
+        </strong>
+    </td>
+    <td>###proyecto###</td>
+    <td>###tipo###</td>
+    <td>###estado###</td>
+    <td>###responsable###</td>
+    <td>###f_Inicio###</td>
+    <td>###f_Entrega###</td>
+    <td>
+        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#detalle-proyecto-###id###">
+            <i class="fa fa-eye" aria-hidden="true"></i> Ver
+        </button>
+
+        ###edit###
+<!--
+        <a href="dox/###archivo###" download="###archivo###"  class="btn btn-sm btn-danger">
+          <i class="fa fa-download" aria-hidden="true"></i>
+        </a> -->
+        ###modal###
+    </td>
+</tr>
+
+<script>
+    $("#edita-proyecto-###id###").on("click",( event )=>{
+
+      event.preventDefault();
+      let id_proyecto = "###id###";
+      let data        = {"id":"editaProyecto", "id_proyecto":id_proyecto };
+
+      ajx("#multiverso", data);
+
+    });
+</script>

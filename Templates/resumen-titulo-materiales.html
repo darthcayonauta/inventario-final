@@ -1,0 +1,309 @@
+<div class="resumen-encabezado" 
+     id="resumen-encabezado">
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Titulo
+            </label>
+        </div>
+        <div class="col-sm-3">
+            <p class="h6">
+                <strong>
+                    ###titulo###
+                </strong>
+            </p>  
+        </div>
+        <div class="col-sm-2">
+            <label for="">
+                Código
+            </label>
+        </div>
+        <div class="col-sm-3">
+            <p class="h6">
+                <strong>
+                    ###codigo###
+                    <input type="hidden" name="codigo" id="codigo" value="###codigo###" >
+                </strong>
+            </p>    
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-sm btn-success"
+                    id="showHide">
+                    <i class="far fa-eye"></i> Ver / Ocultar
+            </button>
+        </div>
+    </div>
+    <div id="wea">
+    <hr>
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Centro
+            </label>
+        </div>
+        <div class="col-sm-5">
+            <p class="h6">
+                ###centro###
+            </p>
+        </div>
+    </div>  
+    <br>
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="">
+                Cantidad de Módulos
+            </label>
+        </div>
+        <div class="col-sm-3">
+                ###cantidad-modulos###
+        </div>
+        <div class="col-sm-2">
+            <label for="">
+                Número de Jaulas
+            </label>
+        </div>
+        <div class="col-sm-3">           
+                ###numero-jaulas###           
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">
+                    Calidad
+                </label>
+            </div>
+            <div class="col-sm-3">            
+                    ###calidad###
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="">
+                    Cámaras X Jaula
+                </label>
+            </div>
+            <div class="col-sm-3">
+                    ###camaras_x_jaula###
+            </div>
+        </div>
+    </div>
+        <br>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12">
+            <p class="h4">
+                <strong>
+                <i class="far fa-arrow-alt-circle-right"></i> Formulario de Materiales
+                </strong>
+              </p>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="raya"></div>
+        </div>
+      </div>
+      <br>
+     <!--espacio del form--> 
+      <div class="row">
+            <div class="col-sm-1">
+                Req.
+            </div>
+            <div class="col-sm-1">
+                u.medida
+            </div>
+            <div class="col-sm-2">
+                Insumo
+            </div>
+            <div class="col-sm-2">
+                Proveedor
+            </div>
+            <div class="col-sm-1">
+                stock
+            </div>
+            <div class="col-sm-1">
+                a_comprar
+            </div>
+            <div class="col-sm-1">
+                ($) p.unit.
+            </div>
+            <div class="col-sm-1">
+                ($)total
+            </div>
+            <div class="col-sm-2">
+                item
+            </div>
+      
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-sm-1">
+            <input type="text" 
+                   class="form-control" 
+                   name="requerimiento" 
+                   id="requerimiento"
+                   value=0>
+        </div>
+        <div class="col-sm-1">
+            ###sel-medida###
+        </div>
+        <div class="col-sm-2">
+            ###sel-insumo###
+        </div>
+        <div class="col-sm-2">
+            ###sel-prov###
+        </div>
+        <div class="col-sm-1">
+            <div id="espacio-stock">
+                <input type="text" class="form-control" name="stock" id="stock" disabled>
+                <input type="hidden" name="stock" id="stock" value="0">
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <input  type="text" 
+                    class="form-control" 
+                    name="a_comprar" 
+                    id="a_comprar"
+                    value=0>
+        </div>
+        <div class="col-sm-1">
+            <input  type="text" 
+                    class="form-control" 
+                    name="precio_unitario" 
+                    id="precio_unitario"
+                    value="0">
+        </div>
+        <div class="col-sm-1">
+            <input type="text" 
+                    class="form-control" 
+                    name="costo_total" 
+                    id="costo_total"
+                    value="0">
+        </div>
+        <div class="col-sm-2">
+            ###sel-item###
+        </div>
+      </div>
+      <br>
+      <div class="row">
+          <div class="col-sm-2">
+              Comentario
+          </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="comentario" id="comentario">
+        </div>
+    </div>
+    <br>
+      <div class="row">
+          <div class="col-sm-12">
+              <button class="btn btn-block btn-secondary"
+                      id="send">
+                <i class="fas fa-angle-double-right"></i> Ingresar Datos
+              </button>
+          </div>
+      </div>
+    <br>
+     <div id="results">
+         Espacio de resultados
+     </div> 
+    
+
+<script>
+
+    $('#wea').hide();
+
+    $("#showHide").on("click",()=>{
+        $("#wea").toggle(400);
+    });
+
+    $('#id_insumo').on('change',function(){
+
+        var id_insumo = $(this).val();
+        
+        if( id_insumo == '' )
+        {alert('Debe seleccionar un insumo'); return false; }
+        else{
+            var data = {'id':'sacaStock','id_insumo':id_insumo};
+            ajx('#espacio-stock',data);
+        }
+    });
+
+    //calculillos
+
+    setInterval(() => {
+
+        let req             = $('#requerimiento').val();
+        let stock           = $('#stock').val();
+        let precio_unitario = $('#precio_unitario').val();
+
+        let dif = stock - req;
+
+        if( dif < 0 )
+        {
+            final = (-1)*dif; 
+        }else if( dif > 0 )
+        {
+            final = 0;
+        }else{
+            final = req;
+        }   
+
+       total = final*precio_unitario;
+
+       $('#a_comprar').val(final); 
+       $('#costo_total').val( total ); 
+    
+    }, 3000);
+
+    //enviar datos
+   $('#send').on('click',( event )=>{
+
+    event.preventDefault();
+    let requerimiento   = $('#requerimiento').val();
+    let id_unidad       = $('#id_unidad').val();
+    let id_insumo       = $('#id_insumo').val();
+    let id_proveedor    = $('#id_proveedor').val();
+    let stock           = $('#stock').val();
+    let a_comprar       = $('#a_comprar').val();
+    let precio_unitario = $('#precio_unitario').val();
+    let costo_total     = $('#costo_total').val();
+    let id_item         = $('#id_item').val();
+    let comentario      = $('#comentario').val();
+    let codigo          = $('#codigo').val();
+
+    if( requerimiento =='' || id_unidad=='' || id_insumo=='' || id_proveedor=='' ||
+        stock=='' || a_comprar=='' || precio_unitario=='' || costo_total=='' ||
+        id_item=='' || comentario=='')
+    {
+        alert('no deben existir campos vacíos');
+        return false;
+    }
+    else{
+
+        let data ={
+            'requerimiento'     : requerimiento,
+            'id_unidad'         : id_unidad,
+            'id_insumo'         : id_insumo,
+            'id_proveedor'      : id_proveedor,
+            'stock'             : stock,
+            'a_comprar'         : a_comprar,
+            'precio_unitario'   : precio_unitario,
+            'costo_total'       : costo_total,
+            'id_item'           : id_item,
+            'comentario'        : comentario,
+            'codigo'            : codigo,
+            'id'                :'ingresaMaterialData'
+        };
+
+       ajx( '#results', data ); 
+    }
+   }); 
+
+</script>

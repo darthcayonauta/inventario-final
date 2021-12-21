@@ -1,0 +1,36 @@
+<tr>
+  <td>###num###</td>
+  <td>###trabajo###</td>
+  <td>
+    <button class="btn btn-sm btn-secondary" id="edita-trabajo-###id###">
+        <i class="far fa-edit"></i>
+    </button>
+    <button class="btn btn-sm btn-danger" id="elimina-trabajo-###id###">
+        <i class="far fa-trash-alt"></i>
+    </button>
+  </td>
+</tr>
+
+
+<script>
+  $('#elimina-trabajo-###id###').on( 'click', ()=>{
+
+    let id_trabajo = '###id###';
+
+    if( confirm('Está Seguro??') )
+    {
+      let data = {'id':'eliminaTrabajo', 'id_trabajo':id_trabajo};
+      ajx('#multiverso', data);
+    }
+  });
+
+  $('#edita-trabajo-###id###').on('click', ()=>{
+
+      let id_trabajo = '###id###';
+      let data = {'id':'editaTrabajo', 'id_trabajo':id_trabajo};
+
+      ajx('#multiverso', data);
+
+  });
+
+</script>

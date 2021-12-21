@@ -1,0 +1,35 @@
+<p class="h5">
+    Permisos de usuario
+</p>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        ###select-folder###
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div id="espacio-subfolders-###id_usuario###">
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#id_folder_###id_usuario###').on( 'change', function(){
+
+        var id_usuario = '###id_usuario###';
+        var id_folder = $(this).val();
+
+        if( id_folder == '' )
+        {
+            alert('Debe elegir una carpeta'); return false;
+        }else{
+
+            var data = {'id':'listaSubFolders', 'id_folder':id_folder, 'id_usuario':id_usuario};
+            ajx( '#espacio-subfolders-###id_usuario###' , data );
+
+        }
+    });
+</script>

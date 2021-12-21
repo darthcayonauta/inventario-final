@@ -1,0 +1,92 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-10">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Item de Insumos
+        </strong>
+          ( ###title### ) <a href="content-page.php?id=bGlzdGFySXRlbVByb2R1Y3Rvcw==" class="btn btn-sm btn-secondary">
+                [ Ir a Listado ]
+          </a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  ###menu_aux###
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Nombre de Item</label>
+    </div>
+    <div class="col-sm-10">
+      <input type ="text"
+             name ="nombre_item"
+             id   ="nombre_item"
+             value="###nombre_item###"
+             placeholder="Ingrese Nombre de Item"
+             class = "form-control">
+    </div>
+  </div>
+  <br>
+<br>
+
+  <div class="row">
+    <div class="col-sm-12">
+      ###hidden###
+      <button  class="btn btn-info btn-block" id="###id_button###" type="button">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+      </button>
+      <br>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10">
+        <div id="notificacion"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+$('#update').on('click', () => {
+  let nombre_item = $('#nombre_item').val();
+  let id_item     = $('#id_item').val();
+
+  if( nombre_item == '' )
+  {
+    alert('Debe ingresar un nombre');
+    return false;
+  }else{
+
+    let data = {'id':'actualizaItemProducto',
+                'nombre_item': nombre_item,
+                'id_item':id_item };
+
+    ajx( '#notificacion',data );
+
+  }
+});
+
+
+  $('#send').on('click', () => {
+    let nombre_item = $('#nombre_item').val();
+
+    if( nombre_item == '' )
+    {
+      alert('Debe ingresar un nombre');
+      return false;
+    }else{
+
+      let data = {'id':'ingresaItemProducto', 'nombre_item': nombre_item };
+      ajx( '#multiverso',data );
+
+    }
+  });
+</script>

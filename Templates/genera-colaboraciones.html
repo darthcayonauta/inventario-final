@@ -1,0 +1,150 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-12">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i> Aportes de Cliente ( Generación )
+        </strong>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  ###menu_aux###
+  <br>
+
+<div class="row">
+
+<div class="col-sm-3">
+  <label for="">
+    <strong>
+      Empresa
+    </strong>
+  </label>
+</div>
+<div class="col-sm-3">
+  <label for="">
+    <strong>
+      Representante
+    </strong>
+  </label>
+</div>
+<div class="col-sm-2">
+  <label for="">
+    <strong>
+      Insumo
+    </strong>
+  </label>
+</div>
+<div class="col-sm-1">
+  <label for="">
+    <strong>
+      Cantidad
+    </strong>
+  </label>
+</div>
+<div class="col-sm-2">
+  <label for="">
+    <strong>
+      Unidad
+    </strong>
+  </label>
+</div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-sm-3">
+      ###select-cliente###
+  </div>
+  <div class="col-sm-3">
+    <div id="espacio-sub-cliente">
+      <select class="form-control" name="sub-cliente" disabled>
+        <option value="0">Seleccione Sub Cliente</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <input type="text" name="titulo" id="titulo" placeholder="iNSUMO" class="form-control">
+  </div>
+  <div class="col-sm-1">
+    <input type="text" name="cantidad" id="cantidad" placeholder="#" class="form-control">
+  </div>
+  <div class="col-sm-3">
+    ###select-unidades###
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-12">
+      <button type="button"
+             name="ingresa-pre-colaboracion"
+             id="ingresa-pre-colaboracion"
+             class="btn btn-block btn-secondary"
+             >
+              <i class="fas fa-angle-double-right"></i> Ingresar
+           </button>
+  </div>
+
+</div>
+<br>
+<div id="espacio-tabla">
+  ###tabla###
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+  $('#id_cliente').on('change',function(){
+
+    var id_cliente = $(this).val();
+
+    if( id_cliente == '' )
+    {
+      alert('Debe seleccionar una empresa');
+      return false;
+
+    }else{
+
+      var data = {'id':'comboSubClientes','id_cliente':id_cliente };
+      ajx('#espacio-sub-cliente',data);
+
+    }
+  });
+
+$('#ingresa-pre-colaboracion').on('click',( event  )=>{
+
+  let titulo          = $('#titulo').val();
+  let id_cliente      = $('#id_cliente').val();
+  let id_sub_cliente  = $('#id_sub_cliente').val();
+  let cantidad        = $('#cantidad').val();
+  let id_unidad       = $('#id_unidad').val();
+
+  if( titulo == '' || id_cliente == '' || id_sub_cliente=='' || cantidad=='' || id_unidad=='' )
+  {
+    alert( 'Todos los campos son obligatorios' );
+    return false;
+  }else{
+
+    let data = {'id':'ingresaPreColaboracion',
+                'titulo'  : titulo,
+                'id_cliente'  : id_cliente,
+                'id_sub_cliente'  : id_sub_cliente,
+                'cantidad'  : cantidad,
+                'id_unidad'  : id_unidad,
+
+    };
+
+    ajx( '#espacio-tabla',data );
+
+    $('#titulo').val("");
+
+  }
+});
+</script>

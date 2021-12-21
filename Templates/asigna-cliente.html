@@ -1,0 +1,100 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-12">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Asignación de Clientes
+        </strong>
+          <a href="content-page.php?id=cmVsRGVzdGlub0NsaWVudGU=" class="btn btn-sm btn-secondary">
+                [ Ir a Listado ]
+          </a>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="raya"></div>
+    </div>
+  </div>
+  <br>
+  ###menu_aux###
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Nombre de Centro</label>
+    </div>
+    <div class="col-sm-10">
+      <strong>
+        ###CENTRO###
+      </strong>
+      <input type="hidden" name="id_centro" id="id_centro" value="###id_centro###">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Cliente</label>
+    </div>
+    <div class="col-sm-8">
+
+        ###select###
+
+      <input type="hidden" name="id_centro" id="id_centro" value="###id_centro###">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      ###hidden###
+      <button  class="btn btn-info btn-block" id="###id_button###" type="button">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+      </button>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+        <div id="notificaciones">
+
+        </div>
+    </div>
+  </div>
+
+
+
+<script type="text/javascript">
+  $('#send').on('click',()=>{
+
+      let id_cliente = $('#id_cliente').val();
+      let id_centro = $('#id_centro').val();
+
+      if(id_cliente=='')
+        {alert( 'Debe Asignar Un Cliente' ); return false;}
+      else{
+
+        let data = {'id':'asignaClienteData',
+                    'id_cliente':id_cliente,
+                    'id_centro':id_centro };
+
+        ajx( '#multiverso',data )
+      }
+  });
+
+
+  $('#update').on('click',()=>{
+
+      let id_cliente = $('#id_cliente').val();
+      let id_centro = $('#id_centro').val();
+
+      if(id_cliente=='')
+        {alert( 'Debe Asignar Un Cliente' ); return false;}
+      else{
+
+        let data = {'id':'cambiaClienteData',
+                    'id_cliente':id_cliente,
+                    'id_centro':id_centro };
+
+        ajx( '#notificaciones',data )
+      }
+  });
+</script>

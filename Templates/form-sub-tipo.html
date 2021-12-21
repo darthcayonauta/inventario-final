@@ -1,0 +1,116 @@
+<div class="bloque">
+  <div class="row">
+    <div class="col-sm-10">
+      <p class="h4">
+        <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Familias
+        </strong>
+          ( ###title### )
+      </p>
+    </div>
+  </div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="raya"></div>
+  </div>
+</div>
+  <br>
+   ###menu_aux###
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <strong>
+        Ingrese Nombre
+      </strong>
+    </div>
+    <div class="col-sm-10">
+      <input type="text" name="descripcion"
+             id="descripcion"
+             value="###descripcion###"
+             placeholder="Ingrese Nombre de Familia" class="form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <strong>
+        Ingrese Categoría
+      </strong>
+    </div>
+    <div class="col-sm-10">
+      ###select###
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <strong>
+        Ingrese Codigo
+      </strong>
+    </div>
+    <div class="col-sm-10">
+      <input type="text" name="codigo"
+             id="codigo"
+             value="###codigo###"
+             placeholder="Ingrese Codigo" class="form-control">
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+      ###hidden###
+      <button class="btn btn-block btn-secondary outline-line-gris" id="###id_button###">
+          <i class="fa fa-angle-double-right" aria-hidden="true"></i> Enviar Datos
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-sm-10" id="notificacion">
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#send').on( 'click', ()=>{
+
+    let descripcion = $('#descripcion').val();
+    let id_tipo     = $('#id_tipo').val();
+    let codigo      = $('#codigo').val();
+
+    if( descripcion == '' || id_tipo == '' || codigo =='' )
+    {
+      alert('ambos campos son obligatorios'); return false;
+    }else{
+
+      let data = {'id'          :'ingresaSubTipo',
+                  'descripcion' : descripcion,
+                  'id_tipo'     : id_tipo,
+                  'codigo'      : codigo };
+
+      ajx( '#multiverso' , data );
+    }
+  });
+
+  $('#edit').on( 'click', ()=>{
+
+    let descripcion = $('#descripcion').val();
+    let id_tipo     = $('#id_tipo').val();
+    let id_subtipo  = $('#id_subtipo').val();
+    let codigo      = $('#codigo').val();
+
+    if( descripcion == '' || id_tipo == '' || codigo =='' )
+    {
+      alert('ambos campos son obligatorios'); return false;
+    }else{
+
+      let data = {'id'          :'editaSubTipoData',
+                  'descripcion' : descripcion,
+                  'id_subtipo'  : id_subtipo,
+                  'id_tipo'     : id_tipo,
+                  'codigo'      :codigo };
+
+      ajx( '#notificacion' , data );
+    }
+  });
+</script>

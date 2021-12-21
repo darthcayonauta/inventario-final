@@ -1,0 +1,169 @@
+<div class="bloque">
+  <div class="col-sm-10">
+    <p class="h4">
+      <strong>
+        <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Usuarios
+      </strong>
+        ( ###title### ) <a href="content-page.php?id=bGlzdGFyLXVzdWFyaW9z" class="btn btn-sm btn-secondary">
+              [ Ir a Listado ]
+        </a>
+    </p>
+  </div>
+<div class="raya"></div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    Nombres
+  </div>
+  <div class="col-sm-8">
+    <input type="text" name="nombres" id="nombres"
+           value="###nombres###" class="form-control"
+           required>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    Apellido Paterno
+  </div>
+  <div class="col-sm-8">
+    <input type="text" name="apaterno" id="apaterno"
+          value="###apaterno###" class="form-control"
+          required>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    Apellido Materno
+  </div>
+  <div class="col-sm-8">
+    <input type="text" name="amaterno" id="amaterno"
+           value="###amaterno###" class="form-control"
+           required>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    email / Login
+  </div>
+  <div class="col-sm-8">
+    <input type="email" name="login" id="login"
+           value="###login###" class="form-control"
+           required>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    Clave
+  </div>
+  <div class="col-sm-8">
+    <input type="password" name="clave" id="clave"
+           class="form-control"
+           required>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-2">
+    Repite Clave
+  </div>
+  <div class="col-sm-8">
+    <input type="password" name="clave2" id="clave2"  class="form-control" required>
+  </div>
+</div>
+<br>
+<div class="row">
+  ###hidden###
+  <div class="col-sm-10">
+    <button type="button" id="###button_id###" class="btn btn-info btn-block">
+        <i class="fas fa-angle-double-right"></i>  Enviar Datos
+    </button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm-10">
+    <div id="notificacion">
+
+    </div>
+  </div>
+</div>
+</div>
+<script>
+  $('#update').on( 'click', ()=>{
+
+    let nombres     = $('#nombres').val();
+    let apaterno    = $('#apaterno').val();
+    let amaterno    = $('#amaterno').val();
+    let login       = $('#login').val();
+    let clave       = $('#clave').val();
+    let clave2      = $('#clave2').val();
+    let id_usuario  = $('#id_usuario').val();
+
+    if( nombres == '' || apaterno == '' || amaterno =='' || login == '' || clave == '' || clave2 =='' )
+    {
+      alert('Todos los Campos son Obligatorios');
+      return false;
+    }
+    else{
+        if( clave != clave2 )
+        {
+          alert('Claves no coinciden');
+          return false;
+
+        }else{
+
+        let data = {  'nombres'       : nombres,
+                      'apaterno'      : apaterno,
+                      'amaterno'      : amaterno,
+                      'login'         : login,
+                      'clave'         : clave,
+                      'clave2'        : clave2,
+                      'id_usuario'    : id_usuario,
+                      'id'            : 'actualizaUserData'  };
+
+        ajx( '#notificacion', data );
+      }
+    }
+  });
+
+
+
+  $('#send').on( 'click', ()=>{
+
+    let nombres   = $('#nombres').val();
+    let apaterno  = $('#apaterno').val();
+    let amaterno  = $('#amaterno').val();
+    let login     = $('#login').val();
+    let clave     = $('#clave').val();
+    let clave2    = $('#clave2').val();
+
+    if( nombres == '' || apaterno == '' || amaterno =='' || login == '' || clave == '' || clave2 =='' )
+    {
+      alert('Todos los Campos son Obligatorios');
+      return false;
+    }
+    else{
+        if( clave != clave2 )
+        {
+          alert('Claves no coinciden');
+          return false;
+
+        }else{
+
+        let data = {  'nombres'   : nombres,
+                      'apaterno'  : apaterno,
+                      'amaterno'  : amaterno,
+                      'login'     : login,
+                      'clave'     : clave,
+                      'clave2'    : clave2,
+                      'id'        : 'creaUserData'  };
+
+        ajx( '#multiverso', data );
+      }
+    }
+  });
+</script>

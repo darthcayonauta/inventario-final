@@ -1,0 +1,75 @@
+<style>
+    #limit{
+        height: 3px;
+        background: #757575;
+    }
+
+    .espacio-tabla{
+
+        text-align: left;
+    }
+</style>
+
+<div class="espacio-tabla">
+<div class="row">
+    <div class="col-sm-12">
+        <p class="h4">
+            <i class="fas fa-arrow-circle-right"></i> <strong>  Lista de Accesos </strong>        
+        </p>
+    </div>
+</div>
+<div id="limit"></div>
+
+<br>
+<div id="mi-tabla">
+<div class="row">
+    <div class="col-md-12">
+          <div class="alert alert-warning">
+                Hay un total de <a href="#" class="alert-link">###total-recs###</a> accesos ( s ) 
+          </div>  
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+        <table class="table table-hover table-responsive">
+                <thead>
+                <tr>
+                   <th>#</th>
+                   <th>fecha_acceso</th>
+                   <th>usuario</th>
+                   <th>ip</th>
+                </tr>    
+                </thead>
+                <tbody>
+                    ###tr###
+                </tbody>
+            </table>
+        <div id="limit"></div>
+        <br>
+        <nav aria-label="Page navigation example">  
+                <ul class="pagination">  
+                    @@@NAV-LINKS
+                </ul>   
+            </nav>
+    </div>
+</div>
+</div>
+</div>  
+<script>
+$('.pagination').click( function(event ){
+
+event.preventDefault();
+
+    var valores = $(this).attr('data');
+    var page     = valores.split("=");
+
+    var data = {
+        'accion':'send',	
+        'id':'lista-accesos',
+        'page':page[1] };
+
+    ajx('#multiverso',data);  
+
+});
+</script>
