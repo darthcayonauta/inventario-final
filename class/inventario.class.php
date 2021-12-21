@@ -988,8 +988,47 @@ private function verificaDispCodigo()
 
     if( $sube )
     {
-      //crear notificacion en mail!!! (se va a llenar la canasta)
-      
+      //colocar en guia de despacho de ingreso
+
+            //añades ingreso en la base de datos
+            if( $this->consultas->ingresaGuiaDespachoIngreso(   $this->token,
+                                                                $this->fecha_hoy,
+                                                                $_POST['id_proveedores'],
+                                                                $this->token,
+                                                                $this->yo,3	 ) )
+                { $ingresa = true; }
+            else{ $ingresa = false; }
+
+            if( $ingresa )
+            {
+            $max_idElemento = 0;
+
+            foreach ($this->consultas->maxElemento() as $key => $value) {
+            # code...
+            $max_idElemento = $value['maxElemento'];
+            }
+
+
+            if( $this->consultas->procesaDetalleGuiaDespachoIngreso( $max_idElemento, 
+                                $this->token,
+                                $_POST['cantidad'], 
+                                $_POST['valor'], 
+                                      ) )
+            {     $ingresa = false; }
+            else{ $ingresa = false; }                                                               
+            }
+            else{
+            $ingresa = false;
+            }
+
+
+
+
+
+
+
+
+
 
 
       //agregar en registro de acciones de usuario
@@ -1320,7 +1359,7 @@ private function verificaDispCodigo()
                                                            $this->fecha_hoy,
                                                            $_POST['id_proveedores'],
                                                            $this->token,
-                                                           $this->yo	 ) )
+                                                           $this->yo,3	 ) )
             { $ingresa = true; }
         else{ $ingresa = false; }
 
