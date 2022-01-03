@@ -21,6 +21,13 @@ class response
 		switch ($this->id)
 		{
 
+			case 'actualiza-centro':
+			case 'edita-estado-centro':
+			case 'cambia-estado-centro':
+			case 'ingresa-centro':
+				return $this::obtenerContenidoClaseOption('centros.class.php','Centros');
+			break;	
+
 			case 'ingresaClienteFromEgreso':
 			case 'verificaNumGuiaEgreso':
 			case 'buscarXfecha':

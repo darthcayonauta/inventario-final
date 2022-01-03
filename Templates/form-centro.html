@@ -1,0 +1,108 @@
+<div class="bloque">
+        <div class="row">
+            <div class="col-sm-10">
+            <p class="h4">
+                <strong>
+                <i class="far fa-arrow-alt-circle-right"></i>  Formulario de Centros ( ###title### )
+                </strong>
+                <a href="content-page.php?id=bGlzdGFyLWNlbnRyb3M=" class="btn btn-sm btn-secondary">
+                        [ Ir a Listado ]
+                </a>
+            </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+            <div class="raya"></div>
+            </div>
+        </div>
+        <br/>
+        ###menu_aux###
+        <br/>
+        <div id="espacio-form">
+            <div class="row">
+                <div class="col-sm-2">
+                    <strong>
+                        Nombre Centro
+                    </strong>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" 
+                            class="form-control" 
+                            id="nombre-centro" 
+                            name="nombre-centro" 
+                            placeholder="Nombre de Centro" 
+                            value="###nombre-centro###">                     
+                </div>          
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-sm-2">
+                    <strong>
+                        Cliente
+                    </strong>
+                </div>
+                <div class="col-sm-6">
+                    ###select###                      
+                </div>          
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    ###hidden###
+                    <button class="btn btn-secondary btn-block"
+                            id="###button-id###"
+                    >
+                    <i class="fas fa-angle-double-right"></i> Enviar datos
+                    </button>
+                </div>
+            </div>
+            <br>
+            <div id="notificacion"></div>
+    </div>
+</div>
+
+<script>
+    $('#send').on( 'click',()=>{
+        let nombre_centro = $('#nombre-centro').val();
+        let id_cliente    = $('#id_cliente').val();
+
+        if( nombre_centro == '' )
+        { alert( 'Debe ingresar un nombre de Centro' ); return false; }
+        else if( id_cliente == '' )
+        { alert( 'Debe seleccionar un Cliente' ); return false; }
+        else{
+
+            let data = {'id'            :'ingresa-centro',
+                        'nombre_centro' :nombre_centro,
+                        'id_cliente'    :id_cliente         };
+
+            ajx( '#espacio-form' , data );
+
+        }
+    });
+
+    $('#update').on( 'click',()=>{
+
+        let nombre_centro = $('#nombre-centro').val();
+        let id_cliente    = $('#id_cliente').val();
+        let id_centro     = $('#id_centro').val();
+
+        if( nombre_centro == '' )
+        { alert( 'Debe ingresar un nombre de Centro' ); return false; }
+        else if( id_cliente == '' )
+        { alert( 'Debe seleccionar un Cliente' ); return false; }
+        else{
+
+            let data = {'id'            :'actualiza-centro',
+                        'nombre_centro' :nombre_centro,
+                        'id_cliente'    :id_cliente,
+                        'id_centro'     :id_centro,
+                             };
+
+            ajx( '#notificacion' , data );
+
+        }
+    });
+
+</script>

@@ -45,6 +45,8 @@ class ContentPage
 	{
 		switch ($this->id)
 		{	
+			case 'listar-centros':
+			case 'crear-centro':
 			case 'listar-guia-despacho-egreso':
 			case 'crear-guia-despacho-egreso':
 			case 'listar-guia-despacho-ingreso':
@@ -150,6 +152,11 @@ class ContentPage
     {
         switch ($this->id) {
 			
+					case 'listar-centros':
+					case 'crear-centro':
+						return $this::generalCall( 'centros.class.php', 'Centros', $this->id );	
+					break;	
+
 					case 'listar-guia-despacho-egreso':
 					case 'crear-guia-despacho-egreso':										
 						return $this::generalCall( 'guia-despacho-egreso.class.php', 'GuiaDespachoEgreso', $this->id );	

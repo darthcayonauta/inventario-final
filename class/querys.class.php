@@ -34,6 +34,85 @@ class querys
 
 	}
 
+	public function procesaCentro(  $descripcion 	= null,
+									$id_cliente  	= null,
+									$id_estado		= null,
+									$id   			= null	)
+	{
+		if( $id )
+		{
+			
+			$update = "UPDATE centro SET descripcion='{$descripcion}', id_cliente={$id_cliente} WHERE id={$id}";
+			if( $this->sql->update( $update ) )
+					return true;
+			else 	return false;
+
+
+		}else{
+
+			$insert = "INSERT INTO centro ( descripcion,id_cliente,id_estado ) VALUES ('{$descripcion}','{$id_cliente}',1)";
+			if( $this->sql->insert( $insert ) )
+					return true;
+			else 	return false;
+		}
+	}
+
+
+public function cambiaEstadoCentro( $id_centro = null , $id_estado = null )
+{
+	switch ($id_estado) {
+		case 2:
+			# code...
+			$id_estado = 1;
+			break;
+		
+		case 1:
+			# code...
+			$id_estado = 2;
+			break;	
+		default:
+			# code...
+			break;
+	}
+
+	$update = "UPDATE centro SET id_estado={$id_estado} WHERE id={$id_centro}";
+
+	if( $this->sql->update( $update ) )
+		 return true;
+	else return false;	
+
+
+}
+
+
+
+public function listaCentros( $id = null )
+{
+	$resto = null;
+	
+	if( $id )
+		$resto = " WHERE centro.id={$id}";	
+
+	$ssql ="SELECT 
+			centro.id,	
+			centro.descripcion,
+			centro.id_estado,
+			centro.id_cliente,
+			clientes.descripcion AS nombreCliente
+			FROM 
+			centro
+			INNER JOIN clientes ON ( clientes.id = centro.id_cliente)
+			{$resto}
+	";
+
+	$arr['sql'] = $ssql;
+	$arr['process'] = $this->sql->select( $ssql );
+	$arr['total-recs'] = count( $arr['process'] );
+
+	return $arr;
+}
+
+
 public function ingresaGuiaDespachoIngreso(  $num_guia     = null,
 											 $fecha        = null,
 											 $id_proveedor = null,

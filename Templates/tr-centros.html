@@ -1,0 +1,50 @@
+<tr>
+    <td>###num###</td>
+    <td>###nombre-centro###</td>
+    <td>###cliente###</td>
+    <td>###estado###</td>
+    <td>
+        <input type="hidden" id="id_estado" value="###id_estado###">
+        <button class="btn btn-secondary btn-sm outline-line-gris" 
+                id="elimina-centro-###id###"        >
+                <i class="fas fa-random"></i> Cambia Estado
+        </button>
+        &nbsp;&nbsp;
+        ###btn###
+    </td>
+</tr>
+<script>
+    $('#elimina-centro-###id###').on( 'click',(e)=>{
+        e.preventDefault()
+
+        let id_centro = '###id###';
+        let id_estado = '###id_estado###';
+
+        if( confirm( 'Esta Seguro??' ) )
+        {
+            let data = {'id': 'cambia-estado-centro',
+                        'id_centro': id_centro ,
+                        'id_estado': id_estado        };       
+
+            ajx( '#listado',data );
+        }
+
+    });
+
+    $('#edita-centro-###id###').on( 'click',(e)=>{
+        e.preventDefault()
+
+        let id_centro = '###id###';
+        let id_estado = '###id_estado###';
+
+      
+            let data = {'id': 'edita-estado-centro',
+                        'id_centro': id_centro ,
+                        'id_estado': id_estado        };       
+
+            ajx( '#multiverso',data );
+        
+
+    });
+
+</script>
