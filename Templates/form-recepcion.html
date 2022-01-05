@@ -1,0 +1,105 @@
+<div class="row form-group">
+    <div class="col-sm-2">
+        <strong>
+            Ingrese RS
+        </strong>
+    </div>
+    <div class="col-sm-3">
+        <input type="text" name="rs" id="rs" class="form-control" placeholder="Ingrese RS">
+    </div>
+    <div class="col-sm-2">
+        <strong>
+            Ingrese Fecha
+        </strong>
+    </div>
+    <div class="col-sm-3">
+        <input type="date" name="fecha" id="fecha" class="form-control" placeholder="Ingrese fecha">
+        <input type="hidden" name="token" id="token" value="###token###">
+    </div>
+</div>
+<hr>
+<div class="row form-group">
+    <div class="col-sm-3">
+        <strong>
+            Insumo
+        </strong>
+    </div>
+    <div class="col-sm-2">
+        <strong>
+            Cantidad Recepcionada
+        </strong>
+    </div>
+    <div class="col-sm-3">
+        <strong>
+            Unidad
+        </strong>
+    </div>
+    <div class="col-sm-3">      
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <input type="text" name="titulo" id="titulo" class="form-control ui-autocomplete-titulo" placeholder="insumo">
+    </div>
+    <div class="col-sm-2">
+        <input type="number" name="cantidad" id="cantidad" class="form-control ui-autocomplete-titulo" placeholder="cantidad">
+    </div>
+    
+    <div class="col-sm-3">
+        ###select###
+    </div>
+    <div class="col-sm-13">
+        <button class="btn btn-sm btn-secondary outline-line-gris" id="add-cart">
+            <i class="fas fa-shopping-cart"></i> Añadir al Listado
+        </button>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-12" id="listadoKart">
+
+    </div>
+</div>
+
+<script>
+    $('#add-cart').on('click', (e) =>{
+        
+        let id_unidad   = $('#id_unidad').val();
+        let elemento    = $('#titulo').val();
+        let cantidad    = $('#cantidad').val();
+        let token       = $('#token').val();
+        let rs          = $('#rs').val();
+        let fecha       = $('#fecha').val();
+
+
+        if( rs=='' )
+        {
+         alert( 'ingrese RS' ); return false;  
+        }else if( fecha=='' )
+        { lert( 'ingrese Fecha' ); return false;   }
+        else if( id_unidad == '' )
+        { alert( 'ingrese unidad' ); return false; }
+        else if( elemento == ''  )
+        { alert( 'ingrese producto' ); return false; }
+        else if( cantidad == '' )
+        { alert( 'ingrese cantidad' ); return false; }
+        else{
+            
+            let data = { 'id': 'ingresaKartMateriales',
+                         'id_unidad':id_unidad,
+                         'elemento' :elemento, 
+                         'token'    :token,  
+                         'cantidad' :cantidad };
+
+            ajx( '#listadoKart' , data );
+
+            $('#titulo').val('');
+            $('#cantidad').val('');
+            $('#id_unidad').val('');
+
+
+        }
+    } );
+</script>
+

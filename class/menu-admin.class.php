@@ -37,6 +37,11 @@ function __construct()
          return $this::despliegueTemplate( $data, 'menu-admin.html' );
          break;
 
+       case 6:
+          return $this::despliegueTemplate( $data, 'menu-operador.html' );
+          break;
+
+
        default:
          return null;
          break;

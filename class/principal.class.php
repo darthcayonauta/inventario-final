@@ -91,15 +91,46 @@ class Principal
 	}
 
 
-	private function content()
+	private function content()	
 	{
-	  try {
-		require_once( 'inventario.class.php' );
-		$ob = new Inventario( 'listarInventario' ); return $ob->getCode();
-	  } catch (\Throwable $th) {
-		  return "Error de clase {$th}";
-	  }
+		switch ($this->tipo_usuario) {
+			case 6:
+				# code...
+				return $this::contentOperarioProduccion();
+				break;
+		
+			case 7:
+				# code...
+				return "ESPACIO PARA JEFE DE PRODUCCION";
+				break;	
+
+			default:
+				return $this::contentNormal();
+				break;
+		}
 	}
+
+	private function contentNormal()
+	{
+		try {
+			require_once( 'inventario.class.php' );
+			$ob = new Inventario( 'listarInventario' ); return $ob->getCode();
+		} catch (\Throwable $th) {
+			return "Error de clase {$th}";
+		}
+	}
+
+	private function contentOperarioProduccion()
+	{
+		try {
+			require_once( 'operario-produccion.class.php' );
+			$ob = new OperarioProduccion( 'colaboracion-operario' ); return $ob->getCode();
+		} catch (\Throwable $th) {
+			return "Error de clase {$th}";
+		}
+	}
+
+
 
 
 	private function separa($cadena=null,$simbolo=null)

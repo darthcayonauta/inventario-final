@@ -34,6 +34,84 @@ class querys
 
 	}
 
+	public function procesaCuerpoMaterialRs( $token                 = null,
+											 $id_elemento           = null,
+											 $id_unidad             = null,
+											 $fecha                 = null,
+											 $fecha_modificacion    = null,
+											 $cantidad_recepcionada = null,
+											 $cantidad_aprobada     = null,
+											 $id_supervisor         = null,											 
+											 $id                    = null)
+	{
+		if( $id )
+		{
+			
+			$update = "";
+			if( $this->sql->update( $update ) )
+					return true;
+			else 	return false;
+
+		}else{
+			
+			$arr = $this::listaCuerpoMaterialRs($id_elemento, $token);
+
+			$insert = "INSERT INTO cuerpo_material(token,id_elemento,id_unidad,fecha,fecha_modificacion,
+					   			   cantidad_recepcionada ,cantidad_aprobada,id_estado)             
+					   VALUES
+					   ('{$token}','{$id_elemento}','{$id_unidad}','{$fecha}','{$fecha_modificacion}',
+					  '{$cantidad_recepcionada}','{$cantidad_aprobada}',1 )";
+
+			if( $arr['total-recs'] > 0 )
+				return false;
+			else
+				if( $this->sql->insert( $insert ) )
+						return true;
+				else 	return false;
+		}
+	}
+
+
+	public function listaCuerpoMaterialRs( $id_elemento = null, $token = null )
+	{
+		$resto = "";
+
+	
+		if( $token )
+			$resto .= " WHERE cuerpo_material.token = '{$token}'";	
+	
+		if( $id_elemento )
+			$resto .= " AND cuerpo_material.id_elemento = {$id_elemento}";
+
+		$ssql = "SELECT 
+					cuerpo_material.id           , 
+					cuerpo_material.token                , 
+					cuerpo_material.id_elemento          , 
+					cuerpo_material.id_unidad            , 
+					cuerpo_material.fecha                , 
+					cuerpo_material.fecha_modificacion   , 
+					cuerpo_material.cantidad_recepcionada, 
+					cuerpo_material.cantidad_aprobada    , 
+					cuerpo_material.id_supervisor        , 
+					cuerpo_material.id_estado            ,
+					elemento.nombre AS nombreProducto    ,
+					unidades.descripcion AS nombreUnidad
+		 FROM cuerpo_material 
+		 INNER JOIN elemento ON ( elemento.id = cuerpo_material.id_elemento)	
+		 INNER JOIN unidades ON ( unidades.id = cuerpo_material.id_unidad )	
+		 
+		 
+		 {$resto}";
+
+		$arr['sql'] = $ssql;
+		$arr['process'] = $this->sql->select( $ssql );
+		$arr['total-recs'] = count( $arr['process'] );
+	
+		return $arr;		
+	}
+
+
+
 	public function procesaCentro(  $descripcion 	= null,
 									$id_cliente  	= null,
 									$id_estado		= null,

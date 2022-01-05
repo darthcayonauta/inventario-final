@@ -1,0 +1,31 @@
+<tr>
+    <td>###num###</td>
+    <td>###insumo###</td>
+    <td>###cantidad_solicitada###</td>
+    <td>###unidad###</td>
+    <td>###fecha_ingreso###</td>
+    <td>###estado###</td>
+    <td>
+        <button class="btn btn-danger btn-sm outline-line-rojo" 
+                id="elimina-elemento-###ID###">
+            <i class="far fa-trash-alt"></i>
+        </button>
+    </td>            
+</tr>
+
+<script>
+    $('#elimina-elemento-###ID###').on( 'click', ()=>{
+        let id_row = '###ID###';
+
+        if( confirm( 'Esta Seguro de Eliminar esta fila?' )  )
+        {
+            let data = {'id':'eliminaRowRecepcion', 
+                        'id_row':id_row} 
+
+           ajx('#listadoKart', data);             
+        }      
+        
+
+      
+    });
+</script>

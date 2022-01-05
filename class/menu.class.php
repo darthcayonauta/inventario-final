@@ -31,6 +31,7 @@ class Menu
   		$this->fecha_hora_hoy 		=  date("Y-m-d H:i:s");
       $this->yo                 = $yo;
       $this->usuario            = "{$_SESSION['nombres']} {$_SESSION['apaterno']} {$_SESSION['amaterno']}";
+      $this->tipo_usuario 		=  $_SESSION['tipo_usuario'];
 
   }
 
@@ -38,10 +39,35 @@ class Menu
   {
       $data = array('@@@LI-CONJUNTO' => $this::enlaces(),
                     '@@@yo'          => $this->yo,
-                    '@@@usuario@@@'  => $this->usuario );
+                    '@@@usuario@@@'  => $this->usuario ,
+                    '###link###'     => $this::destino()   );
 
       return $this::despliegueTemplate( $data,"navbar.html" );
   }
+
+
+  private function destino()
+  {
+    switch ($this->tipo_usuario) {
+      case 6:
+        
+        return base64_encode('colaboracion-operario');
+        break;
+      
+       case 7:
+        return base64_encode('colaboracion-jefe-produccion');
+        break;
+
+      default:
+        # code...
+        return 'aW5pY2lv';
+        break;
+    }
+  }
+
+
+
+
 
   private function enlaces()
   {
