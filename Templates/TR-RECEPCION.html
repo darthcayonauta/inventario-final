@@ -6,26 +6,22 @@
     <td>###fecha_ingreso###</td>
     <td>###estado###</td>
     <td>
-        <button class="btn btn-danger btn-sm outline-line-rojo" 
-                id="elimina-elemento-###ID###">
-            <i class="far fa-trash-alt"></i>
-        </button>
+         ###btn###   
     </td>            
 </tr>
 
 <script>
     $('#elimina-elemento-###ID###').on( 'click', ()=>{
         let id_row = '###ID###';
+        let token  = '###token###'; 
 
         if( confirm( 'Esta Seguro de Eliminar esta fila?' )  )
         {
             let data = {'id':'eliminaRowRecepcion', 
-                        'id_row':id_row} 
+                        'id_row':id_row, 
+                        'token':token} 
 
            ajx('#listadoKart', data);             
-        }      
-        
-
-      
+        }                    
     });
 </script>

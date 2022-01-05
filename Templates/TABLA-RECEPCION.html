@@ -1,4 +1,4 @@
-<table class="table table-sm tabla-responsive table-hover">
+<table class="table table-sm table-hover table-striped">
     <thead  class="thead-dark">
         <tr>
             <th>#</th>
@@ -14,3 +14,18 @@
         ###tr###
     </tbody>
 </table>
+<br>
+<button class="btn btn-secondary btn-block outline-line-gris" id="guardarDataRecepcionRs">
+    <i class="fas fa-angle-double-right"></i> Enviar Datos
+</button>
+<br>
+<script>
+        $('#guardarDataRecepcionRs').on( 'click' , ( e )=>{
+
+        let rs = $('#rs').val();    
+        let fecha = $('#fecha').val();    
+
+        alert("rs::"+rs+", fecha::"+fecha);
+
+    });
+</script>

@@ -34,6 +34,16 @@ class querys
 
 	}
 
+	public function eliminaCuerpoMaterialesRs( $id = null ) 
+	{
+		$delete = "DELETE FROM cuerpo_material WHERE id={$id}";
+		if( $this->sql->delete( $delete ) )
+				return true;
+		else 	return false;	
+
+	}
+
+
 	public function procesaCuerpoMaterialRs( $token                 = null,
 											 $id_elemento           = null,
 											 $id_unidad             = null,

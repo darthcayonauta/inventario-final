@@ -66,13 +66,28 @@ class OperarioProduccion
                 return $this::ingresaKartMateriales();
                 break;  
 
+            case 'eliminaRowRecepcion':
+              # code...
+              return $this::eliminaRowRecepcion();
+              break;  
+
             default:
                 return $this->error;
                 break;
         }
     }
 
+    private function eliminaRowRecepcion()
+    {
+    
+      if ( $this->consultas->eliminaCuerpoMaterialesRs( $_POST['id_row'] ) )
+            $msg = "<i class='far fa-thumbs-up'></i> REGISTRO ELIMINADO";
+      else  $msg = "<i class='far fa-thumbs-down'></i> ERROR AL ELIMINAR"; 
 
+      return $msg.$this::tablaRecepcion( $_POST['token'] );
+
+    }
+    
     /**
      * ingresaKartMateriales(): ingresa el cuerpo de la recepccion de materiales
      * 
@@ -97,10 +112,10 @@ class OperarioProduccion
                                                      $this->fecha_hoy , 
                                                      $_POST['cantidad'], 0 ) )                                                     
       { 
-        return "DATA INGRESADA <br/> ".$this::tablaRecepcion( $_POST['token'] ); 
+        return "<i class='far fa-thumbs-up'></i> DATA INGRESADA <br/> ".$this::tablaRecepcion( $_POST['token'] ); 
       }
       else{
-        return "ERROR AL INGRESAR <br/>".$this::tablaRecepcion( $_POST['token'] );
+        return "<i class='far fa-thumbs-down'></i> ERROR AL INGRESAR <br/>".$this::tablaRecepcion( $_POST['token'] );
       }
     }
 
@@ -127,13 +142,31 @@ class OperarioProduccion
               $estado = "RECEPCIONADA";
         else  $estado = "noRECEPCIONADA/ERROR"; 
 
-        $DATA = ['###num###'                  => $i +1  , 
-                '###ID###'                    => $value['id'],
-                 '###insumo###'               => $value['nombreProducto'], 
-                 '###unidad###'               => $value['nombreUnidad'],
-                 '###fecha_ingreso###'        => $value['fecha'],
-                 '###estado###'               => $estado , 
-                 '###cantidad_solicitada###'  => $value['cantidad_recepcionada']];
+
+       switch ($this->id) {
+
+         case 'eliminaRowRecepcion': 
+         case 'ingresaKartMateriales':
+          $btn = '       <button class="btn btn-danger btn-sm outline-line-rojo" 
+                            id="elimina-elemento-'.$value['id'].'">
+                            <i class="far fa-trash-alt"></i>
+                          </button>';
+           break;
+         
+         default:
+           $btn = null;
+           break;
+       } 
+
+        $DATA = [ '###num###'                  => $i +1  , 
+                  '###ID###'                   => $value['id'],
+                  '###insumo###'               => $value['nombreProducto'], 
+                  '###unidad###'               => $value['nombreUnidad'],
+                  '###fecha_ingreso###'        => $this::arreglaFechas(  $value['fecha'] ), 
+                  '###estado###'               => $estado , 
+                  '###btn###'                  => $btn, 
+                  '###token###'                => $token, 
+                  '###cantidad_solicitada###'  => $value['cantidad_recepcionada']];
 
         $code .= $this::despliegueTemplate( $DATA, 'TR-RECEPCION.html' );
 
@@ -146,8 +179,6 @@ class OperarioProduccion
       return $out;
 
     }
-
-
 
 
     private function colaboracionOperario()
