@@ -34,6 +34,47 @@ class querys
 
 	}
 
+	public function listaRecepcionesOperador( $rs = null )
+	{
+		$resto = null;
+
+		if( $rs  )
+			$resto = " WHERE encabezado_material.rs LIKE '%{$rs}%'";
+
+		$ssql = "SELECT 
+						encabezado_material.id,
+						encabezado_material.token,
+						encabezado_material.fecha,
+						encabezado_material.fecha_modificacion,
+						encabezado_material.rs,
+						encabezado_material.id_user,
+						encabezado_material.id_supervisor,
+						encabezado_material.id_estado,
+						usuario.nombres,
+						usuario.apaterno
+				FROM encabezado_material		
+				INNER JOIN usuario ON ( usuario.id = encabezado_material.id_user)	
+				{$resto}	
+				ORDER BY encabezado_material.fecha DESC";
+
+		$arr['sql'] = $ssql;
+		$arr['process'] = $this->sql->select( $ssql );
+		$arr['total-recs'] = count( $arr['process'] );
+	
+		return $arr;
+	}
+
+	public function ingresaEncabezadoMaterialRs( $token=null,$rs=null, $id_user=null, $fecha=null)
+	{
+		$insert = "INSERT INTO encabezado_material(token,rs,fecha,fecha_modificacion,id_user,id_estado) VALUES 
+				 ('{$token}','{$rs}','{$fecha}','{$fecha}','{$id_user}',1)";
+
+		if( $this->sql->insert( $insert ) )
+				return true;
+		else 	return false;	
+	}		
+
+
 	public function eliminaCuerpoMaterialesRs( $id = null ) 
 	{
 		$delete = "DELETE FROM cuerpo_material WHERE id={$id}";

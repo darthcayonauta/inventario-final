@@ -20,7 +20,8 @@ class response
 
 		switch ($this->id)
 		{
-
+			case 'buscaRsMaterials':
+			case 'ingresaEncabezadoMaterialRs':
 			case 'eliminaRowRecepcion':
 			case 'ingresaKartMateriales':
 				return $this::obtenerContenidoClaseOption('operario-produccion.class.php','OperarioProduccion');

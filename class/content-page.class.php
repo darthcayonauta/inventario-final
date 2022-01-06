@@ -44,7 +44,9 @@ class ContentPage
 	private function control()
 	{
 		switch ($this->id)
-		{	case 'colaboracion-operario':
+		{
+			case 'listado-colaboracion':
+			case 'colaboracion-operario':
 			case 'listar-centros':
 			case 'crear-centro':
 			case 'listar-guia-despacho-egreso':
@@ -152,6 +154,8 @@ class ContentPage
     {
         switch ($this->id) {
 			
+
+					case 'listado-colaboracion':
 					case 'colaboracion-operario':
 						return $this::generalCall( 'operario-produccion.class.php', 'OperarioProduccion', $this->id );							
 						break;

@@ -71,11 +71,129 @@ class OperarioProduccion
               return $this::eliminaRowRecepcion();
               break;  
 
+             case 'ingresaEncabezadoMaterialRs':
+               # code...
+               return $this::ingresaEncabezadoMaterialRs();
+               break; 
+
+             case 'listado-colaboracion':
+               # code...
+               return $this::listarColaboracion();
+               break; 
+
+            case 'buscaRsMaterials':
+              # code...
+              return $this::buscaRsMaterials();
+              break;  
+
+
             default:
                 return $this->error;
                 break;
         }
     }
+
+    private function search( $placeholder = null, $id_text = null, $id_button = null )
+    {
+      $data = ['@@@placeholder'    => $placeholder  ,
+               '@@@id_text'        => $id_text ,
+                '###id-button###'  => $id_button  ];
+      return $this::despliegueTemplate( $data, "buscar.html" );
+    }
+ 
+
+
+
+
+
+    private function listarColaboracion()
+    {
+      $data = ['###menu_aux###' => $this->menu_aux ,
+               "###buscar###"   => $this::search('Ingrese RS para buscar','rs','buscarXRS'), 
+               '###listado###' => $this::tablaListarColaboracion()  ];
+      return $this::despliegueTemplate( $data, 'listar-colaboracion.html' );
+    } 
+
+    private function buscaRsMaterials()
+    {
+      return $this::tablaListarColaboracion();
+    }
+
+
+    private function tablaListarColaboracion()
+    {
+      $arr = $this::trListarColaboracion();
+
+      if( $arr['total-recs'] > 0 )
+      {
+          return $this::despliegueTemplate( [ '###tr###'         => $arr['code'], 
+                                              '###TOTAL-RECS###' => $arr['total-recs'] ],
+                                               'TABLA-COLABORACION.html'  );
+      }else{
+        return  $this::notificaciones( 'warning',null, 
+                                        '<p class="h5"><i class="far fa-meh"></i> 
+                                            <strong>NO HAY RESULTADOS O REGISTROS ASOCIADOS</strong>
+                                        </p>' )    ;
+      }
+    }  
+
+    private function trListarColaboracion()
+    {
+      
+      if( !isset( $_POST['rs'] ) )
+            $arr = $this->consultas->listaRecepcionesOperador();
+      else  $arr = $this->consultas->listaRecepcionesOperador( $_POST['rs'] );
+      
+      
+      $code = "";
+      $i = 0;
+
+      foreach ($arr['process'] as $key => $value) {
+        
+
+        if( $value['id_estado'] ==1  )        
+              $estado = "RECEPCIONADA";
+        else  $estado = "VALIDADA";
+
+
+        $data = ['###NUM###'                => $i+1 , 
+                 '###RS###'                 => $value['rs'],
+                 '###TOKEN###'              => $value['token'], 
+                 '###FECHA###'              => $this::arreglaFechas( $value['fecha'] ), 
+                 '###FECHA-MODIFICACION###' => $this::arreglaFechas( $value['fecha_modificacion'] ),
+                 '###ESTADO###'             => $estado ,
+                 '###CREADO-POR###'         => "{$value['nombres']} {$value['apaterno']}"  ,
+                 '###ID###'                 => $value['id'],
+                 '###modal###'              => $this::modal( "detalle-insumos-{$value['id']}" , 
+                                                             '<i class="fas fa-angle-double-right"></i>',
+                                                             "Detalles de recepción {$value['rs']}-{$value['token']}" ,
+                                                             $this::tablaRecepcion( $value['token'] )
+                                                             )];
+        $code .= $this::despliegueTemplate( $data, 'TR-COLABORACION.html' );
+
+        $i++;
+      }
+
+
+
+
+      $out['code'] = $code;
+      $out['total-recs'] = $arr['total-recs'];
+
+      return $out;
+
+    }
+
+
+    private function ingresaEncabezadoMaterialRs()
+    {
+     
+      if( $this->consultas->ingresaEncabezadoMaterialRs( $_POST['token'],$_POST['rs'], $this->yo, $_POST['fecha']) )
+          return "DATA INGRESADA";
+      else return "ERROR AL INGRESAR"; 
+    }
+
+
 
     private function eliminaRowRecepcion()
     {
@@ -123,7 +241,24 @@ class OperarioProduccion
     {
       $arr = $this::trRecepcion( $token );
 
-      $DATA = [ '###tr###' => $arr['code']  ];
+      
+      switch ($this->id) {
+        
+        case 'listado-colaboracion':
+        case 'buscaRsMaterials':
+          
+          $btn = null;
+          break;
+        
+        default:
+          
+          $btn = '<button class="btn btn-secondary btn-block outline-line-gris" id="guardarDataRecepcionRs">
+                      <i class="fas fa-angle-double-right"></i> Enviar Datos
+                  </button>';
+          break;
+      }
+
+      $DATA = [ '###tr###' => $arr['code'] , '###btn###' => $btn  ];
       return $this::despliegueTemplate( $DATA, 'TABLA-RECEPCION.html' );
       
     }
@@ -147,6 +282,7 @@ class OperarioProduccion
 
          case 'eliminaRowRecepcion': 
          case 'ingresaKartMateriales':
+
           $btn = '       <button class="btn btn-danger btn-sm outline-line-rojo" 
                             id="elimina-elemento-'.$value['id'].'">
                             <i class="far fa-trash-alt"></i>
@@ -201,6 +337,22 @@ class OperarioProduccion
                                           'form-recepcion.html' );
     }
 
+
+  /**
+   * modal(): extrae un modal desde una Clase
+   *
+   *@param string target
+   *@param string img
+   *@param string title
+   *@param string content
+   */
+  private function modal( $target = null,$img = null, $title = null, $content = null )
+  {
+      require_once("modal.class.php");
+
+      $ob_modal = new Modal($target ,$img , $title , $content );
+      return $ob_modal->salida();
+  }
 
     /**
    * notificaciones()

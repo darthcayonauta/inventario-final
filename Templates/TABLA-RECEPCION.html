@@ -3,7 +3,7 @@
         <tr>
             <th>#</th>
             <th>Insumo</th>
-            <th>Cantidad Solicitada</th>
+            <th>Cantidad Recibida</th>
             <th>Unidad</th>
             <th>Fecha Ingreso</th>
             <th>Estado</th>
@@ -15,17 +15,35 @@
     </tbody>
 </table>
 <br>
-<button class="btn btn-secondary btn-block outline-line-gris" id="guardarDataRecepcionRs">
-    <i class="fas fa-angle-double-right"></i> Enviar Datos
-</button>
+###btn###
+
 <br>
 <script>
         $('#guardarDataRecepcionRs').on( 'click' , ( e )=>{
 
-        let rs = $('#rs').val();    
-        let fecha = $('#fecha').val();    
+        e.preventDefault    
 
-        alert("rs::"+rs+", fecha::"+fecha);
+        let rs      = $('#rs').val();    
+        let fecha   = $('#fecha').val(); 
+        let token   = $('#token').val();    
 
+        
+        if( rs == '' )
+        { alert('debe ingresar un RS');return false; }
+        else if( fecha == '' )
+        { alert('debe ingresar una Fecha');return false; }
+        else{
+
+            let data = { 'id':'ingresaEncabezadoMaterialRs',
+                         'token':token,
+                         'rs': rs,
+                         'fecha':fecha   
+            };
+
+
+            if( confirm( 'Esta seguro de ingresar esta información???' ) )
+                    ajx( "#listado", data );
+
+        }
     });
 </script>
