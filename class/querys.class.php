@@ -397,10 +397,12 @@ public function listaGuiaDespachoIngreso( $token 		= null,
 										  $id 			= null ,
 										  $buscar 		= null,
 										  $fecha_inicio = null,
-										  $fecha_fin 	= null )
+										  $fecha_fin 	= null,
+										  $id_tipo_documento = null )
 {
 
 	$resto = null;
+	$itd = null;
 
 	if( $token )
 		$resto = "WHERE guia_despacho_ingreso.token = '{$token}' ";
@@ -411,8 +413,11 @@ public function listaGuiaDespachoIngreso( $token 		= null,
 	if( $id )
 		$resto = "WHERE guia_despacho_ingreso.id = '{$id}' ";
 
-		if( $buscar )
-		$resto = "WHERE guia_despacho_ingreso.fecha BETWEEN '{$fecha_inicio}' AND '$fecha_fin'";
+	if( $id_tipo_documento )
+		$itd = " guia_despacho_ingreso.id_tipo_documento = {$id_tipo_documento} AND";	
+
+	if( $buscar )
+	$resto = "WHERE {$itd} guia_despacho_ingreso.fecha BETWEEN '{$fecha_inicio}' AND '{$fecha_fin}' ";
 
 
 	$ssql = "SELECT 

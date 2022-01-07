@@ -588,7 +588,10 @@ private function listarGuiaDespachoIngreso()
 
 private function buscarFecha()
 {
-  $data = [];
+  $arr    = $this->consultas->tipoDocumento();
+  $select = new Select( $arr['process'],'id','descripcion','id_tipo_documento','Tipo de Documento'  );
+
+  $data = ['###select###' => $select->getCode() ];
   return $this::despliegueTemplate( $data, 'buscar-fecha.html' );
 }
 
@@ -605,7 +608,7 @@ private function tablaGuiaDespacho()
     $data = [ '###tr###'        => $arr['code'] , 
               '###nav-links###' => $arr['nav-links'] ];
 
-    return $this::despliegueTemplate( $data,'tabla-guia-despacho-1.html' );
+    return $this::despliegueTemplate( $data,'tabla-guia-despacho-1.html' )  ;
 
   }else {
 
@@ -644,7 +647,8 @@ private function trTablaGuiaDespacho()
                                                       null,
                                                       null, 1,
                                                       $_POST['fechaInicio'],
-                                                      $_POST['fechaFinal'] 
+                                                      $_POST['fechaFinal'] ,
+                                                      $_POST['id_tipo_documento']
                                                     );
     $nav_links  = null;
     $param      = $arr['process'] ;                                                       
@@ -683,6 +687,7 @@ private function trTablaGuiaDespacho()
   $out['total-recs']  = $arr['total-recs'];
   $out['code']        = $code;
   $out['nav-links']   = $nav_links;
+  $out['sql']  = $arr['sql'];
 
 
   return $out;

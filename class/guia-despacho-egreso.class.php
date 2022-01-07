@@ -560,7 +560,7 @@ private function procesaDetalleGuiaDespachoEgresoUpdate()
 
     private function buscarFecha()
     {
-      $data = [];
+      $data = ['###select###' => null ];
       return $this::despliegueTemplate( $data, 'buscar-fecha.html' );
     }
 

@@ -65,13 +65,15 @@
     $('#buscar-fecha').hide();
 
     $('#buscarXfecha').on( 'click',  ()=>{
-    let fechaInicio = $('#fecha-inicio').val();
-    let fechaFinal  = $('#fecha-final').val();
+    let fechaInicio       = $('#fecha-inicio').val();
+    let fechaFinal        = $('#fecha-final').val();
+    let id_tipo_documento = $('#id_tipo_documento').val();
 
     let data = {'id'            :'buscarXfechaIngreso',
                 'fechaInicio'   :fechaInicio,
                 'fechaFinal'    :fechaFinal,    
-                'buscaFecha'    : 1    
+                'buscaFecha'    : 1    ,
+                'id_tipo_documento':id_tipo_documento
                 };
 
      ajx( "#miTabla", data );            
