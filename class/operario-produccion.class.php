@@ -189,7 +189,13 @@ class OperarioProduccion
     {
      
       if( $this->consultas->ingresaEncabezadoMaterialRs( $_POST['token'],$_POST['rs'], $this->yo, $_POST['fecha']) )
-          return "DATA INGRESADA";
+           {
+             
+            $data = ['###rs###' => $_POST['rs'], '###fecha###' => $_POST['fecha'] , '###listado###'=> $this::tablaRecepcion( $_POST['token'] )  ];
+            return $this::despliegueTemplate( $data , 'resumen-rs.html' )  ;
+          
+          
+          }
       else return "ERROR AL INGRESAR"; 
     }
 
@@ -242,8 +248,9 @@ class OperarioProduccion
       $arr = $this::trRecepcion( $token );
 
       
-      switch ($this->id) {
-        
+      switch ($this->id) 
+      {
+        case 'ingresaEncabezadoMaterialRs':
         case 'listado-colaboracion':
         case 'buscaRsMaterials':
           

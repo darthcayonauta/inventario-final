@@ -999,6 +999,37 @@ private function verificaDispCodigo()
 
             //añades ingreso en la base de datos
    
+       //añades ingreso en la base de datos
+        if( $this->consultas->ingresaGuiaDespachoIngreso(  $this->token,
+                                                           $this->fecha_hoy,
+                                                           $_POST['id_proveedores'],
+                                                           $this->token,
+                                                           $this->yo,4	 ) )
+        {     $ingresa = true; }
+        else{ $ingresa = false; }
+
+        if( $ingresa )
+        {
+
+      
+        if( $this->consultas->procesaDetalleGuiaDespachoIngreso( $_POST['id_inventario'], 
+                                                                $this->token,
+                                                                $_POST['cantidad'], 
+                                                                $_POST['valor'], 
+                            ) )
+        {     $ingresa = false; }
+        else{ $ingresa = false; }                                                               
+        }
+        else{ $ingresa = false; }
+
+
+
+
+
+
+
+
+
 
 
       //agregar en registro de acciones de usuario
@@ -1123,7 +1154,20 @@ private function verificaDispCodigo()
         $arr_afirmacion = $this->consultas->afirmacion();
         $sel_afirmacion = new Select( $arr_afirmacion['process'], 'id','descripcion','id_afirmacion', 'Si o No' );
 
+        $btn_movimientos='<a
+                            class="btn btn-sm btn-secondary outline-line-gris rounded-pill"
+                            data-toggle="modal"
+                            data-target="#modal-historico"
+                            data-placement ="top" title = "Movimientos Históricos"
+                            >
+                        <i class="far fa-eye"></i> Movimientos
+                      </a>';
+
+
         $data = ['###title###'              => 'Editar',
+                 '###modal###'              => $this::modal("modal-historico",null,
+                                                            "Contenido Histórico de {$value['nombre']} / Codigo: {$codigo_final}",
+                                                            $this::modalHistorico(  $value['codigo'], $value['id'] ) ), 
                  '###elemento###'           => $this::codifica( $value['nombre'] ,2 ),
                  '###id_elemento###'        => $value['id'],
                  '###hidden_elemento###'    => $hidden_elemento,                 
@@ -1145,6 +1189,7 @@ private function verificaDispCodigo()
                  '###hidden_codigo_final###' => $hidden_codigo_final,
                  '###codigo_final###'        => $codigo_final,                    
                  '###btn-stck-critico###'   => $this->btn_critico,
+                 '###btn-movimientos###'    => $btn_movimientos,
                  '###descripcion###'        => $this::codifica( $value['descripcion'] ,1),
                  '###select-disabled1####'  => $this::seletcDisabled('sub-ubicacion',
                                                                     $this::codifica( $value['nombreSubUbicacion'],1 ),
@@ -1153,7 +1198,7 @@ private function verificaDispCodigo()
                                                                     $this::codifica( $value['nombreSubTipo'] ,1),
                                                                     $value['id_sub_tipo'] ),
                  '###select-unidad###'     => $sel3->getCode(),
-                 '###valor###'             => $value['precio'], 
+                 '###valor###'             => $this::sacaValorActual( $value['id'] ), 
                  '###select-operativo###'  => $sel_afirmacion->getCode(),
                  '###id_button###'         => 'edit'                  ];
 
@@ -1445,6 +1490,8 @@ private function verificaDispCodigo()
              '###codigo_final###'       => null,
              '###disabled_codigo_final###' => null,
              '###valor###'              => null,
+             '###btn-movimientos###'    => null,
+             '###modal###'              => null,
              '###select-familia###' => $sel_fam->getCode(),
              '###select-unidad###'      => $sel3->getCode(),
              '###select-proveedor###' => $sel_proveedores->getCode(),
@@ -1743,7 +1790,8 @@ private function verificaDispCodigo()
                                                                       $value['codigo'],
                                                                       $value['nombre'], $codigo_final) ),
                "###editar###" => $this->btn, '###ingreso###' => $this->ingreso,
-               "###unidad###"  => $value['nombreUnidad']
+               "###unidad###"  => $value['nombreUnidad'],
+               "###valor###"   => $this::separa_miles(  $this::sacaValorActual( $value['id'] ) )
               ];
 
       $code .= $this::despliegueTemplate( $data , 'tr-inventario.html' );
