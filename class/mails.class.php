@@ -13,43 +13,16 @@ class mails
 	private $mail_target;
 	private $ruta_abs;
 
-	function __construct( 	$id 			= null,
-						  	$mail_target	= null,
-						  	$contenido 		= null ,
-						  	$ruta_abs 		= null)
+	function __construct( 	$mail_target	= null,
+						  	$contenido 		= null )
 	{
 		$oConf    			= new config();
 		$cfg      			= $oConf->getConfig();
 	  	$this->template 	= new template();
-   		$this->ruta     	= $cfg['base']['template'];
-		$this->id  			= $id;
+   		$this->ruta     	= $cfg['base']['template'];		
 		$this->contenido  	= $contenido;
 		$this->mail_target  = $mail_target;
-
-		if( is_null( $ruta_abs ) )
-				$this->$ruta_abs = null;
-		else 	$this->$ruta_abs = $ruta_abs;
-
-	}
-
-	private function control()
-	{
-		switch ($this->id) {
-			case 'enviaStockCriticoUnitarioSup':
-			case 'enviaStockCriticoUnitario':
-				return $this::enviaStockCriticoUnitario();
-				break;
-
-			default:
-				return false;
-				break;
-		}
-	}
-
-	private function enviaStockCriticoUnitario()
-	{
-		$data = array( '###contenido###' => $this->contenido );
-		return $this::despliegueTemplate( $data, 'msg-stock-critico.html',1 );
+		
 	}
 
 	/**
@@ -77,26 +50,10 @@ class mails
 		$mail->Subject = "Recepcion de mensaje ";
 		$mail->isHTML(true);
 
-		$mail->Body = $this::control();
+		$mail->Body = $this->contenido;
 
-		switch ($this->id) {
-			case 'enviaStockCriticoUnitario':
-						$mail->AddAddress("claudio.guzman@socma.cl");
-						$mail->AddAddress("danitza.mancilla@socma.cl");
-				break;
-
-			case 'enviaStockCriticoUnitarioSup':
-					$mail->AddAddress("claudio.guzman@socma.cl");
-					$mail->AddAddress("danitza.mancilla@socma.cl");
-				
-					//adding new target
-				break;
-
-			default:
-				// code...
-				break;
-		}
-
+		//$mail->AddAddress("claudio.guzman@socma.cl");
+		$mail->AddAddress($this->mail_target);
 
 		if($mail->Send()) {
 
@@ -108,25 +65,7 @@ class mails
 		}
 	}
 
-	 /**
-	  * despliegueTemplate(), metodo que sirve para procesar los templates
-	  *
-	  * @param  array   arrayData (array de datos)
-	  * @param  array   tpl ( template )
-	  * @return String
-	  */
-    private function despliegueTemplate($arrayData,$tpl,$ruta_abs=null ){
 
-		if( is_null( $ruta_abs )  )
-			$tpl = $this->ruta.$tpl;
-		else 	$tpl = "/home/inventario/public_html/Templates/{$tpl}";
-
-
-	      $this->template->setTemplate($tpl);
-	      $this->template->llena($arrayData);
-
-	      return $this->template->getCode();
-	  }
 
 	/**
 	 * getCode()

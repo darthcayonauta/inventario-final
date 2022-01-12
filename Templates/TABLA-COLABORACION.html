@@ -17,3 +17,29 @@
         ###tr###
     </tbody>
 </table>
+<br>
+<div class="row">
+    <div class="col-sm-12">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          ###nav-links###
+        </ul>
+    </nav>
+    </div>
+  </div>
+
+  <script>
+    $('.pagination').click( function(){
+
+    var valores = $(this).attr('data');
+    var page     = valores.split("=");
+
+    var data = {
+        'accion':'send',
+        'id':'tablaListarColaboracion',
+        'page':page[1] };
+
+    ajx('#listado',data);
+
+    });
+</script>

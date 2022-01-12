@@ -52,6 +52,8 @@ class OperarioProduccion
   
     $this->email = "claudio.guzman@socma.cl";
     $this->menu_aux = $this::menu_aux();
+
+
     }
 
     private function control()
@@ -127,8 +129,11 @@ class OperarioProduccion
       if( $arr['total-recs'] > 0 )
       {
           return $this::despliegueTemplate( [ '###tr###'         => $arr['code'], 
-                                              '###TOTAL-RECS###' => $arr['total-recs'] ],
-                                               'TABLA-COLABORACION.html'  );
+                                              '###TOTAL-RECS###' => $arr['total-recs'] ,
+                                              '###nav-links###'  => $arr['nav-links']  
+                                            
+                                            ],
+                                               'TABLA-COLABORACION.html'    );
       }else{
         return  $this::notificaciones( 'warning',null, 
                                         '<p class="h5"><i class="far fa-meh"></i> 
@@ -141,14 +146,26 @@ class OperarioProduccion
     {
       
       if( !isset( $_POST['rs'] ) )
-            $arr = $this->consultas->listaRecepcionesOperador();
-      else  $arr = $this->consultas->listaRecepcionesOperador( $_POST['rs'] );
+            {
+              $arr = $this->consultas->listaRecepcionesOperador();              
+              $utils      = new utiles($arr['sql']);
+              $rs_dd      = $utils->show();
+              $nav_links  = $rs_dd['nav_links'];
+              $param      = $rs_dd['result'] ;
+            
+            
+            }
+      else  {
+              $arr = $this->consultas->listaRecepcionesOperador( $_POST['rs'] );
+              $param = $arr['process'];  
+              $nav_links = null;      
+      }
       
       
       $code = "";
       $i = 0;
 
-      foreach ($arr['process'] as $key => $value) {
+      foreach ($param as $key => $value) {
         
 
         if( $value['id_estado'] ==1  )        
@@ -174,11 +191,9 @@ class OperarioProduccion
         $i++;
       }
 
-
-
-
       $out['code'] = $code;
       $out['total-recs'] = $arr['total-recs'];
+      $out['nav-links'] = $nav_links;
 
       return $out;
 
@@ -190,14 +205,35 @@ class OperarioProduccion
      
       if( $this->consultas->ingresaEncabezadoMaterialRs( $_POST['token'],$_POST['rs'], $this->yo, $_POST['fecha']) )
            {
-             
-            $data = ['###rs###' => $_POST['rs'], '###fecha###' => $_POST['fecha'] , '###listado###'=> $this::tablaRecepcion( $_POST['token'] )  ];
+            
+            $ob_mail = new mails( $this->email, $this::plantillaMsg( $_POST['rs'] )  );
+
+            if( $ob_mail->getCode() )
+                  $ok = true;
+            else  $ok = false; 
+
+
+            $data = [ '###rs###'      => $_POST['rs'], 
+                      '###fecha###'   => $_POST['fecha'] , 
+                      '###listado###' => $this::tablaRecepcion( $_POST['token'] )  ];
+
             return $this::despliegueTemplate( $data , 'resumen-rs.html' )  ;
           
           
           }
-      else return "ERROR AL INGRESAR"; 
+      else { return "ERROR AL INGRESAR";  }
+
+     //enviar mail...
+     
     }
+
+    private function plantillaMsg( $rs = null )
+    {
+      $data = ['###rs###' => $rs , '###email###' => $this->email];
+      return $this::despliegueTemplate( $data, 'mensaje-recepcion.html' );
+    }
+
+
 
 
 
