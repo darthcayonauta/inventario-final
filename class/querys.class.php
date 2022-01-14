@@ -34,12 +34,33 @@ class querys
 
 	}
 
-	public function listaRecepcionesOperador( $rs = null )
+	public function actualizaElementoRs ( $id_elemento = null,  $new_stock = null) 
+	{
+
+		$update = "UPDATE elemento SET stock={$new_stock} WHERE id={$id_elemento}";
+
+		if( $this->sql->update( $update ) )
+			return true;
+		else
+			return false;	
+
+		#return $update;
+
+	}
+
+
+
+
+	public function listaRecepcionesOperador( $rs = null, $token=null )
 	{
 		$resto = null;
 
 		if( $rs  )
 			$resto = " WHERE encabezado_material.rs LIKE '%{$rs}%'";
+
+		if( $token  )
+			$resto = " WHERE encabezado_material.token = '{$token}'";
+
 
 		$ssql = "SELECT 
 						encabezado_material.id,
@@ -74,6 +95,18 @@ class querys
 		else 	return false;	
 	}		
 
+	public function actualizaEncabezadoMaterialRs( $token = null, $id_supervisor = null )
+	{
+		$update = "UPDATE encabezado_material SET id_estado=2, 
+				  id_supervisor= {$id_supervisor}, fecha_modificacion='{$this->fecha_hoy}'  WHERE token = '{$token}'";
+
+		if( $this->sql->update( $update ) )
+			return true;
+		else
+			return false;	
+
+	}
+
 
 	public function eliminaCuerpoMaterialesRs( $id = null ) 
 	{
@@ -98,7 +131,9 @@ class querys
 		if( $id )
 		{
 			
-			$update = "";
+			$update = "UPDATE cuerpo_material SET fecha_modificacion = '{$this->fecha_hoy}', cantidad_aprobada={$cantidad_aprobada},
+					   id_supervisor = {$id_supervisor}, id_estado=2 WHERE id = {$id}   ";
+
 			if( $this->sql->update( $update ) )
 					return true;
 			else 	return false;
@@ -146,6 +181,7 @@ class querys
 					cuerpo_material.id_supervisor        , 
 					cuerpo_material.id_estado            ,
 					elemento.nombre AS nombreProducto    ,
+					elemento.stock    ,
 					unidades.descripcion AS nombreUnidad
 		 FROM cuerpo_material 
 		 INNER JOIN elemento ON ( elemento.id = cuerpo_material.id_elemento)	

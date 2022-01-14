@@ -19,12 +19,12 @@ class ContentPage
 			$this->yo = $yo;
 		}
 
-	  $oConf    					= new config();
-	  $cfg      					= $oConf->getConfig();
-	  $db       					= new mysqldb(  $cfg['base']['dbhost'],
-													$cfg['base']['dbuser'],
-													$cfg['base']['dbpass'],
-													$cfg['base']['dbdata'] );
+		$oConf    					= new config();
+		$cfg      					= $oConf->getConfig();
+		$db       					= new mysqldb(  $cfg['base']['dbhost'],
+														$cfg['base']['dbuser'],
+														$cfg['base']['dbpass'],
+														$cfg['base']['dbdata'] );
 
 		$this->consultas 				= new querys( $db );
 		$this->template  				= new template();
@@ -45,6 +45,7 @@ class ContentPage
 	{
 		switch ($this->id)
 		{
+			case 'colaboracion-jefe-produccion':
 			case 'listado-colaboracion':
 			case 'colaboracion-operario':
 			case 'listar-centros':
@@ -154,6 +155,10 @@ class ContentPage
     {
         switch ($this->id) {
 			
+					case 'colaboracion-jefe-produccion':
+						# code...
+						return $this::generalCall( 'jefe-produccion.class.php', 'JefeProduccion', $this->id );							
+						break;	
 
 					case 'listado-colaboracion':
 					case 'colaboracion-operario':

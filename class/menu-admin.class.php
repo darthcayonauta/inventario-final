@@ -20,7 +20,7 @@ function __construct()
   $this->template  			= new template();
   $this->ruta      			= $cfg['base']['template'];
 
-  $this->menu_aux = $this::menu_admin();
+  $this->menu_aux       = $this::menu_admin();
 }
 
 
@@ -41,6 +41,9 @@ function __construct()
           return $this::despliegueTemplate( $data, 'menu-operador.html' );
           break;
 
+       case 7:
+          return $this::despliegueTemplate( $data, 'menu-jefe-produccion.html' );
+          break;
 
        default:
          return null;

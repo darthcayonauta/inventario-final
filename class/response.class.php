@@ -20,6 +20,14 @@ class response
 
 		switch ($this->id)
 		{
+			case 'validaTotal':
+			case 'validaRecepcion':
+			case 'tablaListadoJefeProduccion':
+				# code...
+				return $this::obtenerContenidoClaseOption('jefe-produccion.class.php','JefeProduccion');
+				break;
+
+			case 'tablaListarColaboracion':
 			case 'buscaRsMaterials':
 			case 'ingresaEncabezadoMaterialRs':
 			case 'eliminaRowRecepcion':

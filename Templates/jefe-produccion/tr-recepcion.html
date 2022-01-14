@@ -1,0 +1,44 @@
+<tr>
+    <td>###NUM###</td>
+    <td>###RS###</td>
+    <td>###TOKEN###</td>
+    <td>###FECHA###</td>
+    <td>###FECHA-MODIFICACION###</td>
+    <td>
+        <strong>
+            ###ESTADO###
+        </strong>
+    </td>
+    <td>###CREADO-POR###</td>
+    <td>
+        <button class="btn btn-sm btn-success" id="valida-recepcion-###ID###" ###DISABLED###>
+            Validar
+        </button>
+        &nbsp;&nbsp;        
+        <button class="btn btn-sm btn-secondary outline-line-gris"
+                data-toggle = "modal"
+                data-target = "#detalle-insumos-###ID###"
+        >
+            <i class="far fa-eye"></i> Detalle
+        </button>
+        ###modal###
+    </td>
+</tr>
+<script>
+    $('#valida-recepcion-###ID###').on( 'click', ( e )=>{
+        e.preventDefault;
+
+        let id_colaboracion     = "###ID###";
+        let token               = "###TOKEN###";
+        let rs                  = "###RS###";
+
+        let data = { 'id'               :'validaRecepcion', 
+                     'id_colaboracion'  :id_colaboracion,                
+                     'token'            :token,    
+                     'rs'               :rs,    
+                    }
+
+       ajx('#listado', data) ;            
+
+    });
+</script>

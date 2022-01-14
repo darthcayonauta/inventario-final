@@ -88,6 +88,12 @@ class OperarioProduccion
               return $this::buscaRsMaterials();
               break;  
 
+            case 'tablaListarColaboracion':
+              # code...
+              return $this::tablaListarColaboracion();
+              break;  
+
+
 
             default:
                 return $this->error;
@@ -286,6 +292,7 @@ class OperarioProduccion
       
       switch ($this->id) 
       {
+        case 'tablaListarColaboracion':
         case 'ingresaEncabezadoMaterialRs':
         case 'listado-colaboracion':
         case 'buscaRsMaterials':

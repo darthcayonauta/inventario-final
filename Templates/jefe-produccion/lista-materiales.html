@@ -1,0 +1,107 @@
+<table class="table table-sm table-hover table-striped">
+    <thead  class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Insumo</th>
+            <th>Stock Actual</th>
+
+            <th>Cantidad Recibida</th>
+            <th>Unidad</th>
+            <th>Cantidad Ok</th>
+            <th>Fecha Ingreso</th>
+            <th>Fecha Modificación</th>
+            <th>Estado</th>            
+        </tr>
+    </thead>
+    <tbody>
+        ###tr###
+    </tbody>
+</table>
+
+<button class="btn btn-secondary btn-block outline-line-gris" id="send">
+    <i class="fas fa-chevron-circle-right"></i>  Validar Recepción
+</button>
+<br>
+<br>
+<script>
+
+    //proceso de envio
+    $('#send').on( 'click', (event)=>{
+        event.preventDefault;
+        
+        let token               = "###token###"; 
+        let rs                  = "###rs###";    
+        let cantidad_ok         = $('.cantidad_ok').serialize();
+        let id_insumo           = $('.id_insumo').serialize();
+        let id_elemento         = $('.id_elemento').serialize();
+        let cantidad_recibida   = $('.cantidad_recibida').serialize();
+
+        if( !validaCaja( cantidad_ok ) )
+        { alert('Debe llenar los campos'); return false; }
+        else if( !compara( cantidad_recibida, cantidad_ok ) )
+        {
+            alert('La cantidad aprobada no puede ser mayor a la cantidad recibida'); return false;
+        }else{
+
+            let data = {'id'                  :'validaTotal',
+                        'cantidad_ok'         : cantidad_ok,
+                        'id_insumo'           : id_insumo,
+                        'id_elemento'         : id_elemento,
+                        'cantidad_recibida'   : cantidad_recibida,
+                        'token'               : token,
+                        'rs'                  : rs
+                    };
+
+            //cofirmacion de envio al server            
+            if( confirm("Está seguro que la información es Correcta??? Recuerde que esto afectará al Stock de Inventario") )
+                ajx('#lista-materiales',data);            
+
+        }  
+    });
+
+    //valida si existen valores vacíos en los formularios
+    function validaCaja( cadena )
+    {
+        var arrCadena = divideChain(cadena,"&");
+
+        var j   = 0;
+        var aux = "";
+
+        for (var i = 0; i < arrCadena.length; i++) {
+                aux = divideChain (arrCadena[i],"=");
+
+                if(aux[1] == '' )
+                        j++;
+        };
+
+        if( j > 0)
+                return false;
+        else
+                return true
+    }
+
+    //compara si lo que se va enviar es mayor a lo recepcionado
+    function compara( cantidad_recibida, cantidad_ok )
+    {
+        var arrCadenaRecibida = divideChain(cantidad_recibida,"&");
+        var arrCadenaOk = divideChain(cantidad_ok,"&");
+
+        var j   = 0;
+        var aux = "";
+
+        for (var i = 0; i < arrCadenaRecibida.length; i++) {
+                aux_recibida = divideChain (arrCadenaRecibida[i],"=");
+                aux_ok       = divideChain (arrCadenaOk[i],"=");
+
+                if(Number( aux_ok[1] )> Number( aux_recibida[1] ) )
+                        j++;
+        };
+
+        if( j > 0)
+                return false;
+        else
+                return true
+    }
+
+
+</script>

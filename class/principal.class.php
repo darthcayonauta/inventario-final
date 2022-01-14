@@ -101,7 +101,7 @@ class Principal
 		
 			case 7:
 				# code...
-				return "ESPACIO PARA JEFE DE PRODUCCION";
+				return $this::contentJefeProduccion();
 				break;	
 
 			default:
@@ -130,7 +130,15 @@ class Principal
 		}
 	}
 
-
+	private function contentJefeProduccion()
+	{
+		try {
+			require_once( 'jefe-produccion.class.php' );
+			$ob = new JefeProduccion( 'colaboracion-jefe-produccion' ); return $ob->getCode();
+		} catch (\Throwable $th) {
+			return "Error de clase {$th}";
+		}
+	}
 
 
 	private function separa($cadena=null,$simbolo=null)
