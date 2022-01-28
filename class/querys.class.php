@@ -419,7 +419,6 @@ public function qGuiaDespachoEgreso( $num_guia = null )
 {
 	$ssql = "SELECT * FROM guia_despacho_egreso WHERE num_guia = '{$num_guia}'";
 
-
 	$arr['sql'] = $ssql;
 	$arr['process'] = $this->sql->select( $ssql );
 	$arr['total-recs'] = count( $arr['process'] );

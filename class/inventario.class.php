@@ -223,6 +223,13 @@ private function sacaAutoCodigoFinal()
           $cod_final = 1090001;
           break;
 
+        case 98:  
+          $cod_final = 1101001;
+          break;
+
+        case 99:  
+            $cod_final = 1200001;
+            break;
 
 
         default:
@@ -1021,12 +1028,6 @@ private function verificaDispCodigo()
         else{ $ingresa = false; }                                                               
         }
         else{ $ingresa = false; }
-
-
-
-
-
-
 
 
 

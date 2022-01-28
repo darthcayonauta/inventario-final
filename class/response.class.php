@@ -20,6 +20,7 @@ class response
 
 		switch ($this->id)
 		{
+			case 'buscaRecepcion':
 			case 'validaTotal':
 			case 'validaRecepcion':
 			case 'tablaListadoJefeProduccion':

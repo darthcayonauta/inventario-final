@@ -12,7 +12,7 @@
             <i class="far fa-arrow-alt-circle-right"></i>  
             Recepcion de Materiales 
         </strong>
-        ( VALIDACION )
+        ( VALIDACION  )
         
         </p>
         </div>
@@ -33,9 +33,23 @@
         </div>
        </div>
    </div>
-       
 
-    <div id="listado">
+    <div id="listado">    
         ###listado###
     </div>
 </div>
+
+<script>
+    $('#search').on( 'click', (e)=>{
+        let rs = $('#rs').val();
+        if( rs == '' )
+            { alert( 'Debe ingresar un valor de RS' ); return false; }
+        else{
+
+            let data = { 'id':'buscaRecepcion', 
+                         'rs': rs,'buscar':1             };
+
+            ajx( '#listado', data );
+        }
+    } );
+</script>

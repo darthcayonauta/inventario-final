@@ -56,6 +56,7 @@
             return $this::colaboracionJefeProduccion();
             break;
         
+        case 'buscaRecepcion':
         case 'tablaListadoJefeProduccion':
             # code...
             return $this::listado();
@@ -71,6 +72,12 @@
           # code...
           return $this::validaTotal();
           break;  
+
+        case 'buscaRecepcion':
+          # code...
+          return $this::listado();
+          break;
+
 
         default:
             # code...
@@ -258,10 +265,21 @@
 
 
 
+  private function search( $placeholder = null, $id_text = null, $id_button = null )
+  {
+    $data = ['@@@placeholder'    => $placeholder  ,
+             '@@@id_text'        => $id_text ,
+              '###id-button###'  => $id_button  ];
+    return $this::despliegueTemplate( $data, "buscar.html" );
+  }
+
+
+
+
   private function colaboracionJefeProduccion()
   {
     $data = ['###menu_aux###' => $this->menu_aux,
-             '###buscar###'   => null,
+             '###buscar###'   => $this::search( 'Ingrese RS','rs','search' ),
              '###listado###'  => $this::listado()  
             
             ];

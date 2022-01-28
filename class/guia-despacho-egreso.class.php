@@ -139,25 +139,42 @@ class GuiaDespachoEgreso
       if( $actualiza  )
             return $this::tablaResumen( $_POST['token'] );
       else  return "REGISTRO NO ACTUALIZADO";
-
-
     }
 
 
     private function tablaResumen( $token = null, $num_guia=null ,  $excel = null , $id_insumo = null) 
     {
     
+      $fecha = "";
+      $data_db = $this->consultas->qGuiaDespachoEgreso(  $num_guia );
+
+      foreach ($data_db['process'] as $key => $value) {
+        # code...
+        $fecha .= $value['fecha'];
+      }       
+
+      $rs = $this::sacaRs( $token );
+
       if( $id_insumo )
             $guia_desp ='<th>Num Guia</th>';
       else  $guia_desp =null;
     
-      $target = "excel-guia-despacho.php?num_guia={$num_guia}&token={$token}&egreso=1"; 
+      $target     = "excel-guia-despacho.php?num_guia={$num_guia}&token={$token}&egreso=1";
+      $target_pdf = "pdf-egresos.php?num_guia={$num_guia}&token={$token}&rs={$rs}&fecha={$fecha}&egreso=1"; 
     
       if( is_null( $excel ) )
-            $btn = null;
-      else  $btn = '<a href="'.$target.'" class="btn btn-success btn-sm outline-line-verde" target="_blank">
-                      <i class="far fa-arrow-alt-circle-right"></i> Exportar a Excel
-                    </a>'; 
+            {$btn     = null;
+             $btn_pdf = null;   
+            }
+      else{
+        $btn = '<a href="'.$target.'" class="btn btn-success btn-sm outline-line-verde" target="_blank">
+                  <i class="far fa-arrow-alt-circle-right"></i> Exportar a Excel
+                </a>'; 
+
+       $btn_pdf = '<a href="'.$target_pdf.'" class="btn btn-danger btn-sm outline-line-rojo" target="_blank">
+                        <i class="far fa-file-pdf"></i> Exportar a PDF
+                  </a>';              
+      }  
     
       $arr = $this::trResumen( $token , $id_insumo );
       $data = ['###th-v-total###' => '<th>Total</th>' , '###tr###' => $arr['code'] ,
@@ -166,6 +183,7 @@ class GuiaDespachoEgreso
                                          <td>$". $this::separa_miles( $arr['total'] )."</td>   
                                       </tr>",
                '###excel###'      => $btn,
+               '###pdf###'        => $btn_pdf,
                '###guia-desp###'  => $guia_desp                       
     
     ];
@@ -215,6 +233,27 @@ class GuiaDespachoEgreso
     
       return $out;
     
+    }
+
+    public function dataInsumosFromEgreso( $token = null, $id = null )
+    {
+      $arr = $this->consultas->listaDetalleGuiaDespachoEgreso( $token , $id );
+      $i =0;
+      $data = array();
+
+      foreach ($arr['process'] as $key => $value) {
+        # code...
+        $data[$i][ 'codigo_final' ] = $value['codigo_final'];
+        $data[$i][ 'nombreInsumo' ] = $value['nombreInsumo'];
+        $data[$i][ 'familia' ]      = $value['familia'];
+        $data[$i][ 'cantidad' ]     = $value['cantidad'];
+        $data[$i][ 'stock' ]        = $value['stock'];
+
+        $i++;
+      }
+
+      return $data;
+
     }
 
     public function tablaExcelEgreso( $num_guia = null, $token = null )
