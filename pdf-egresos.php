@@ -26,7 +26,6 @@
 	include("config.php");
     
 
-
 if ($_SESSION['autenticado'] == 1 )
 {
 	require_once( "fpdf/fpdf.php" );
@@ -53,8 +52,33 @@ if ($_SESSION['autenticado'] == 1 )
 			$this->rs 		= $_GET['rs'];		
 			$this->fecha 	= $_GET['fecha'];		
 			
+
+			$this->setFont('Arial','',8);
+			$this->Cell(45,4, utf8_decode( 'Módulo desarrollado por DYT SOCMA Ltda.' ),0,0);
+			$this->Ln();
+			$this->Cell(45,4, utf8_decode( '_______________________________________________________________________________________________________' ),0,0);
+			$this->Ln(10);
 		}
 
+     /**
+      * arregla_fechas()
+      *
+      * @param  string FECHA
+      * @return string
+      */
+	  private function arreglaFechas( $FECHA=null ){
+
+		if(!is_null( $FECHA )){
+			$div = explode("-", $FECHA);
+
+			return $div[2]."-".$div[1]."-".$div[0];
+		}else
+			return null;
+	}
+
+		/**
+		 * sacaCliente(): extrae el nombre del cliente
+		 */
 		private function sacaCliente()
 		{
 			$arr 		= $this->consultas->listaGuiaDespachoEgreso( $this->token );
@@ -66,6 +90,7 @@ if ($_SESSION['autenticado'] == 1 )
 
 			return $cliente;
 		}
+
 
 		/**
 		 * cuerpo(): contenido del pdf
@@ -83,15 +108,15 @@ if ($_SESSION['autenticado'] == 1 )
 			$this->setFont('Arial','B',10);			
 			$this->Cell(45,7, utf8_decode( 'GUIA DE DESPACHO :' ),0,0);
 			$this->setFont('Arial','',10);
-			$this->Cell(50,7,$this->num_guia,0,0);
+			$this->Cell(30,7,$this->num_guia,0,0);
 			$this->setFont('Arial','B',10);			
 			$this->Cell(10,7, utf8_decode( 'RS :' ),0,0);
 			$this->setFont('Arial','',10);
-			$this->Cell(40,7,$this->rs,0,0);
+			$this->Cell(50,7,$this->rs,0,0);
 			$this->setFont('Arial','B',10);
 			$this->Cell(15,7, utf8_decode( 'FECHA :' ),0,0);
 			$this->setFont('Arial','',10);
-			$this->Cell(40,7,$this->fecha,0,0);
+			$this->Cell(40,7, $this::arreglaFechas(  $this->fecha ) ,0,0);
 			$this->Ln();
 			$this->setFont('Arial','B',10);			
 			$this->Cell(45,7, utf8_decode( 'CLIENTE :' ),0,0);
@@ -105,28 +130,39 @@ if ($_SESSION['autenticado'] == 1 )
 			$this->Ln();
 			
 			$this->setFont('Arial','B',8);
-			$this->Cell(8,7, utf8_decode('# '),1,0);
-			$this->Cell(15,7, utf8_decode('Código '),1,0);
-			$this->Cell(100,7, utf8_decode('Insumo / Producto '),1,0);
-			$this->Cell(85,7, utf8_decode('Familia '),1,0);
-			$this->Cell(22,7, utf8_decode('Stock Actual '),1,0);
-			$this->Cell(20,7, utf8_decode('Cantidad'),1,0);
+			$this->Cell(6,6, utf8_decode('# '),1,0);
+			$this->Cell(15,6, utf8_decode('Código '),1,0);
+			$this->Cell(140,6, utf8_decode('Insumo / Producto '),1,0);
+			$this->Cell(60,6, utf8_decode('Familia '),1,0);
+			$this->Cell(20,6, utf8_decode('Stock Actual '),1,0);
+			$this->Cell(15,6, utf8_decode('Cantidad'),1,0);
 			$this->Ln();
 			$this->setFont('Arial','',8);
 
 			foreach ($data as $key => $value) {
 				
 				//$code .= $key."  ".$value['codigo_final']." ".$value['nombreInsumo']    ."<br>";
-				$this->Cell(8,7, utf8_decode( $i+1 ),1,0);
-				$this->Cell(15,7, utf8_decode($value['codigo_final']),1,0);
-				$this->Cell(100,7, utf8_decode($value['nombreInsumo']),1,0);
-				$this->Cell(85,7, utf8_decode($value['familia']),1,0);
-				$this->Cell(22,7, utf8_decode($value['stock']),1,0);
-				$this->Cell(20,7, utf8_decode($value['cantidad']),1,0);
+				$this->Cell(6,6, utf8_decode( $i+1 ),1,0);
+				$this->Cell(15,6, utf8_decode($value['codigo_final']),1,0);
+				$this->Cell(140,6, utf8_decode($value['nombreInsumo']),1,0);
+				$this->Cell(60,6, utf8_decode($value['familia']),1,0);
+				$this->Cell(20,6, utf8_decode($value['stock']),1,0);
+				$this->Cell(15,6, utf8_decode($value['cantidad']),1,0);
 				$this->Ln();
 
 				$i++;
 			}
+		}
+
+		// Pie de página
+		function Footer()
+		{
+			// Posición: a 1,5 cm del final
+			$this->SetY(-15);
+			// Arial italic 8
+			$this->SetFont('Arial','I',8);
+			// Número de página
+			$this->Cell(0,10, utf8_decode('Pág.').$this->PageNo().'/{nb}',0,0,'C');
 		}
 	}
 

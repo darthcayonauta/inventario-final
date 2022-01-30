@@ -226,20 +226,37 @@ public function resumenInsumos( $id_insumo = null )
 }
 
 
-private function tablaResumen( $token = null, $num_guia=null ,  $excel = null , $id_insumo = null) 
+private function tablaResumen(  $token          = null, 
+                                $num_guia       = null ,
+                                $excel          = null , 
+                                $id_insumo      = null,
+                                $tipo_documento = null,
+                                $proveedor      = null,
+                                $fecha          = null ) 
 {
 
   if( $id_insumo )
         $guia_desp ='<th>Num Guia</th>';
   else  $guia_desp =null;
 
-  $target = "excel-guia-despacho.php?num_guia={$num_guia}&token={$token}"; 
+  $target     = "excel-guia-despacho.php?num_guia={$num_guia}&token={$token}"; 
+  $target_pdf = "pdf-ingresos.php?num_guia={$num_guia}&token={$token}&fecha={$fecha}&tipo_documento={$tipo_documento}&proveedor={$proveedor}"; 
 
   if( is_null( $excel ) )
-        $btn = null;
-  else  $btn = '<a href="'.$target.'" class="btn btn-success btn-sm outline-line-verde">
-                  <i class="far fa-arrow-alt-circle-right"></i> Exportar a Excel
-                </a>'; 
+        {
+          $btn = null;
+          $btn_pdf = null;
+        }
+  else{
+          $btn = '<a href="'.$target.'" class="btn btn-success btn-sm outline-line-verde">
+                      <i class="far fa-arrow-alt-circle-right"></i> Exportar a Excel
+                  </a>'; 
+
+          $btn_pdf = '<a href="'.$target_pdf.'" class="btn btn-danger btn-sm outline-line-rojo" target="_blank">
+                          <i class="far fa-file-pdf"></i> Exportar a PDF
+                      </a>';              
+            }          
+
 
   $arr = $this::trResumen( $token , $id_insumo );
   $data = ['###th-v-total###' => '<th>Total</th>' , '###tr###' => $arr['code'] ,
@@ -248,6 +265,7 @@ private function tablaResumen( $token = null, $num_guia=null ,  $excel = null , 
                                      <td>$". $this::separa_miles( $arr['total'] )."</td>   
                                   </tr>",
            '###excel###'      => $btn,
+           '###pdf###'        => $btn_pdf,
            '###guia-desp###'  => $guia_desp                       
 
 ];
@@ -291,8 +309,28 @@ private function trResumen( $token = null , $id_insumo = null )
   $out['total'] = $total;
 
   return $out;
-
 }
+
+public function dataInsumos( $token = null, $id_insumo = null )
+{
+  $arr = $this->consultas->listaDetalleGuiaDespachoIngreso( $token , $id_insumo );
+  $i =0; 
+  $data = array();
+
+  foreach ($arr['process'] as $key => $value) {
+    # code...
+    $data[ $i ]['codigo_final'] = $value['codigo_final'];
+    $data[ $i ]['nombreInsumo'] = $value['nombreInsumo'];
+    $data[ $i ]['familia']      = $value['familia'];
+    $data[ $i ]['stock']        = $value['stock'];
+    $data[ $i ]['cantidad']     = $value['cantidad'];
+    $data[ $i ]['valor']        = $value['valor'];    
+  $i++;
+  }
+
+  return $data;
+}
+
 
 
 private function sacaGuia( $token = null )
@@ -574,11 +612,11 @@ private function listarGuiaDespachoIngreso()
 {
   //return "MODULO EN CONSTRUCCION PARA {$this->id}";
 
-  $data = ['###menu-aux###' => $this->menu_aux , 
-           '###tipo###' => 'Ingreso' , 
-           '###tabla###' => $this::tablaGuiaDespacho() ,
+  $data = ['###menu-aux###'     => $this->menu_aux , 
+           '###tipo###'         => 'Ingreso' , 
+           '###tabla###'        => $this::tablaGuiaDespacho() ,
            '###buscar-fecha###' => $this::buscarFecha(), 
-           '###buscar###' => $this::search( 'Busque numero de Guia de despacho', 'num_guia', 'buscar-btn' ) 
+           '###buscar###'       => $this::search( 'Busque numero de Guia de despacho', 'num_guia', 'buscar-btn' ) 
           
           ];
   return $this::despliegueTemplate( $data, 'lista-guia-despacho-ingreso.html' );
@@ -673,7 +711,12 @@ private function trTablaGuiaDespacho()
               '###modal###'     => $this::modal("ver-insumos-{$value['token']}",
                                                  null, 
                                                 'LISTA DE INSUMOS '.$value['tipo_documento'].' # '.$value['num_guia'],
-                                                $this::tablaResumen( $value['token'], $value['num_guia'] , 1 )
+                                                $this::tablaResumen( $value['token'], 
+                                                                     $value['num_guia'] ,
+                                                                     1,null,
+                                                                     $value['tipo_documento'],
+                                                                     $value['nombreProveedor'], 
+                                                                     $this::arreglaFechas( $value['fecha'] ))
               
               )
 
