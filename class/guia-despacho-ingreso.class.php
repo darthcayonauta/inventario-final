@@ -311,6 +311,13 @@ private function trResumen( $token = null , $id_insumo = null )
   return $out;
 }
 
+/**
+ * dataInsumos(): array de datos de insumos de Ingreso
+ * 
+ * @param string token
+ * @param int id_insumo ( la verdad no se ocupa )
+ * @return array()
+ */
 public function dataInsumos( $token = null, $id_insumo = null )
 {
   $arr = $this->consultas->listaDetalleGuiaDespachoIngreso( $token , $id_insumo );

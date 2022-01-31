@@ -80,6 +80,7 @@ class GuiaDespachoEgreso
               return $this::finishEgresos();
               break;  
 
+            case 'listarGuiaEgresoPagination':  
             case 'buscarXfecha':  
             case 'buscaLaGuiaEgreso':
               # code...
@@ -609,7 +610,7 @@ private function procesaDetalleGuiaDespachoEgresoUpdate()
 
       $arr = $this::trTablaGuiaDespacho();
 
-      $data = ['###tr###' => $arr['code'] ];
+      $data = ['###tr###' => $arr['code'] , '###nav-links###' => $arr['nav-links']  ];
       return $this::despliegueTemplate( $data,'tabla-guia-despacho-2.html' );
 
     }
@@ -623,18 +624,32 @@ private function procesaDetalleGuiaDespachoEgresoUpdate()
       if( !isset( $_POST['buscaFecha'] ) )
       {
         if( !isset( $_POST['quest'] ) )
-                  $arr = $this->consultas->listaGuiaDespachoEgreso();
-            else  $arr = $this->consultas->listaGuiaDespachoEgreso(null, 
+                  { 
+                    $arr = $this->consultas->listaGuiaDespachoEgreso();                    
+                    $utils      = new utiles($arr['sql']);
+                    $rs_dd      = $utils->show();
+                    $nav_links  = $rs_dd['nav_links'];
+                    $param      = $rs_dd['result'] ;
+                  
+                  
+                  }
+            else{
+                    $arr = $this->consultas->listaGuiaDespachoEgreso(null, 
                                                                  $_POST['num_guia']);
+                    $nav_links  = null;
+                    $param      = $arr['process'] ;                                                
+            }  
       }else{
                   $arr = $this->consultas->listaGuiaDespachoEgreso( null,
                                                                     null,
                                                                     1,
                                                                     $_POST['fechaInicio'] ,
                                                                     $_POST['fechaFinal']  );
+                  $nav_links  = null;
+                  $param      = $arr['process'] ; 
       }
 
-      foreach ($arr['process'] as $key => $value) {
+      foreach ($param as $key => $value) {
         # code...
     
         if( $value['id_estado'] == 1  )
@@ -665,6 +680,7 @@ private function procesaDetalleGuiaDespachoEgresoUpdate()
     
       $out['total-recs'] = $arr['total-recs'];
       $out['code']=$code;
+      $out['nav-links']   = $nav_links;
       $out['sql'] = $arr['sql'];
         
       return $out;

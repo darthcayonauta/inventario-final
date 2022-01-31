@@ -43,6 +43,7 @@ class response
 				return $this::obtenerContenidoClaseOption('centros.class.php','Centros');
 			break;	
 
+			case 'listarGuiaEgresoPagination':
 			case 'ingresaClienteFromEgreso':
 			case 'verificaNumGuiaEgreso':
 			case 'buscarXfecha':

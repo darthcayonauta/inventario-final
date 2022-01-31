@@ -138,8 +138,6 @@
 			$this->Cell(0,10, utf8_decode('Pág.').$this->PageNo().'/{nb}',0,0,'C');
 		}
 
-
-
     /**
   	  * separa_miles(), coloca separador de miles en una cadena de caracteres
   	  *
