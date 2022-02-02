@@ -34,26 +34,28 @@ class response
 			case 'eliminaRowRecepcion':
 			case 'ingresaKartMateriales':
 				return $this::obtenerContenidoClaseOption('operario-produccion.class.php','OperarioProduccion');
-			break;	
+			break;
 
 			case 'actualiza-centro':
 			case 'edita-estado-centro':
 			case 'cambia-estado-centro':
 			case 'ingresa-centro':
 				return $this::obtenerContenidoClaseOption('centros.class.php','Centros');
-			break;	
+			break;
 
+
+			case 'editaEgreso':
 			case 'listarGuiaEgresoPagination':
 			case 'ingresaClienteFromEgreso':
 			case 'verificaNumGuiaEgreso':
 			case 'buscarXfecha':
 			case 'buscaLaGuiaEgreso':
 			case 'finishEgresos':
-			case 'generaGuiaDespachoEgreso':	
+			case 'generaGuiaDespachoEgreso':
 				return $this::obtenerContenidoClaseOption('guia-despacho-egreso.class.php','GuiaDespachoEgreso');
 			break;
 
-			case 'listarGuiaIngresoPagination':		
+			case 'listarGuiaIngresoPagination':
 			case 'ingresaProveedorFromIngreso':
 			case 'verificaNumGuia':
 			case 'buscarXfechaIngreso':
@@ -61,12 +63,12 @@ class response
 			case 'finishIngresos':
 			case 'generaGuiaDespacho':
 				return $this::obtenerContenidoClaseOption('guia-despacho-ingreso.class.php','GuiaDespachoIngreso');
-				break;	
+				break;
 
 			case 'ingresaEquipo1':
 				# code...
 				return $this::obtenerContenidoClaseOption('equipos.class.php','Equipos');
-				break;	
+				break;
 
 			case 'editaServicioData':
 			case 'editaServicio':
@@ -115,7 +117,7 @@ class response
 				return $this::obtenerContenidoClaseOption('sub-clientes.class.php','SubClientes');
 				break;
 
-			case 'accesos':	
+			case 'accesos':
 			case 'cambiaClave':
 			case 'actualizaUserData':
 			case 'editaUsuario':

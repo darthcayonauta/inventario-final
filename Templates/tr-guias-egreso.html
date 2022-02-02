@@ -10,14 +10,34 @@
     <td>###cliente###</td>
     <td>###estado###</td>
     <td>###usuario###</td>
-    <td>    
+    <td>
         <button class="btn btn-sm btn-secondary outline-line-gris"
-                data-toggle="modal"    
-                data-target="#ver-insumos-###token###"    
-        
-        >
-            <i class="far fa-eye"></i> Ver Insumos
+                data-toggle="modal"
+                data-target="#ver-insumos-###token###">
+            <i class="far fa-eye"></i> Detalle
+        </button>
+        &nbsp;
+        <button id="edita-egreso-###id###" class="btn btn-sm btn-secondary">
+          <i class="far fa-edit"></i> Edit
         </button>
         ###modal###
     </td>
 </tr>
+
+<script type="text/javascript">
+  $('#edita-egreso-###id###').on('click',(event)=>{
+
+    event.preventDefault;
+      let id_egreso = '###id###';
+      let token     = '###token###';
+
+      if( confirm( "Edicion de Egreso. Está seguro??" ) )
+      {
+          let data = {'id'        :'editaEgreso' ,
+                      'id_egreso' :id_egreso,
+                      'token'     :token       };
+
+          ajx( '#cubo', data );
+      }
+  });
+</script>

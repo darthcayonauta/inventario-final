@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-12">
             <p class="h4">
-                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>                          
+                <i class="fas fa-arrow-circle-right"></i> <strong>  Guías de Despacho ( ###tipo### )</strong>
             </p>
         </div>
     </div>
@@ -15,50 +15,51 @@
 ###menu-aux###
 <br>
 
-<div class="row">
-    <div class="col-sm-12">
-        <p class="h5">
-            <strong>
-                Lista de Guías de Despacho 
-                <button class="btn btn-sm btn-secondary outline-line-gris"  id="t-buscar">
-                   Abrir/Cerrar Buscar
-                </button>
-                <button class="btn btn-sm btn-secondary outline-line-gris"  
-                        id="f-buscar">
-                    Buscar por Fecha
-                 </button>
-                 <a href="content-page.php?id=Y3JlYXItZ3VpYS1kZXNwYWNoby1lZ3Jlc28=" class="btn btn-sm btn-info">
-                    Crear Guia de Despacho de Egreso
-                </a>
-            </strong>
-    
-        </p>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-sm-10">
-        <div id="buscar">
-            ###buscar###
-        </div>
-        <div id="buscar-fecha">
-            ###buscar-fecha###
-        </div>
-    </div>
-</div>
+<div id="cubo">
+  <div class="row">
+      <div class="col-sm-12">
+          <p class="h5">
+              <strong>
+                  Lista de Guías de Despacho
+                  <button class="btn btn-sm btn-secondary outline-line-gris"  id="t-buscar">
+                     Abrir/Cerrar Buscar
+                  </button>
+                  <button class="btn btn-sm btn-secondary outline-line-gris"
+                          id="f-buscar">
+                      Buscar por Fecha
+                   </button>
+                   <a href="content-page.php?id=Y3JlYXItZ3VpYS1kZXNwYWNoby1lZ3Jlc28=" class="btn btn-sm btn-info">
+                      Crear Guia de Despacho de Egreso
+                  </a>
+              </strong>
+
+          </p>
+      </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-sm-10">
+          <div id="buscar">
+              ###buscar###
+          </div>
+          <div id="buscar-fecha">
+              ###buscar-fecha###
+          </div>
+      </div>
+  </div>
 
 
-<div id="espacio-tabla">
-<div class="row">
-    <div class="col-sm-12">
-       <div id="miTabla">
-           ###tabla###  
-       </div> 
-    </div>
+  <div id="espacio-tabla">
+  <div class="row">
+      <div class="col-sm-12">
+         <div id="miTabla">
+             ###tabla###
+         </div>
+      </div>
+  </div>
+  </div>
+  </div>
 </div>
-
-</div>
-
 
 <script>
     $('#buscar').hide();
@@ -96,11 +97,11 @@ $('#buscarXfecha').on( 'click',  ()=>{
 
     let data = {'id'            :'buscarXfecha',
                 'fechaInicio'   :fechaInicio,
-                'fechaFinal'    :fechaFinal,    
-                'buscaFecha'    : 1    
+                'fechaFinal'    :fechaFinal,
+                'buscaFecha'    : 1
                 };
 
-     ajx( "#miTabla", data );            
+     ajx( "#miTabla", data );
 
 });
 
